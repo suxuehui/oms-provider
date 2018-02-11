@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE configuration  
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径 -->
+	<typeAliases>
+		<typeAlias type="cn.com.dubbo.model2.Employee" alias="Employee" />
+		
+		<typeAlias type="cn.com.dubbo.model2.E_orderstate" alias="E_orderstate" />
+		<typeAlias type="cn.com.dubbo.model2.E_products" alias="E_products" />
+		<typeAlias type="cn.com.dubbo.model2.E_saleorderindex" alias="E_saleorderindex" />
+		<typeAlias type="cn.com.dubbo.model2.E_salesorderbatchno" alias="E_salesorderbatchno" />
+		<typeAlias type="cn.com.dubbo.model2.E_salesorderbatchnoExt" alias="E_salesorderbatchnoExt" />
+		<typeAlias type="cn.com.dubbo.model2.E_salesorderdetail" alias="E_salesorderdetail" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="cn/com/dubbo/mapper2/Employee2Mapper.xml" />
+		
+		<mapper resource="cn/com/dubbo/mapper2/E_orderstateMapper.xml" />
+		<mapper resource="cn/com/dubbo/mapper2/E_productsMapper.xml" />
+		<mapper resource="cn/com/dubbo/mapper2/E_saleorderindexMapper.xml" />
+		<mapper resource="cn/com/dubbo/mapper2/E_salesorderbatchnoExtMapper.xml" />
+		<mapper resource="cn/com/dubbo/mapper2/E_salesorderbatchnoMapper.xml" />
+		<mapper resource="cn/com/dubbo/mapper2/E_salesorderdetailMapper.xml" />
+	</mappers>
+</configuration>  

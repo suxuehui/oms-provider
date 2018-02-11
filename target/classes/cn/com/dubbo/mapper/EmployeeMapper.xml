@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.model.Employee" >
+    <id column="empId" property="empid" jdbcType="INTEGER" />
+    <result column="empAddress" property="empaddress" jdbcType="VARCHAR" />
+    <result column="empAge" property="empage" jdbcType="VARCHAR" />
+    <result column="empMail" property="empmail" jdbcType="VARCHAR" />
+    <result column="empName" property="empname" jdbcType="VARCHAR" />
+    <result column="empPhone" property="empphone" jdbcType="VARCHAR" />
+    <result column="empSex" property="empsex" jdbcType="VARCHAR" />
+    <result column="empPass" property="emppass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    empId, empAddress, empAge, empMail, empName, empPhone, empSex, empPass
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where empId = #{empid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee
+    where empId = #{empid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.dubbo.model.Employee" >
+    insert into employee (empId, empAddress, empAge, 
+      empMail, empName, empPhone, 
+      empSex, empPass)
+    values (#{empid,jdbcType=INTEGER}, #{empaddress,jdbcType=VARCHAR}, #{empage,jdbcType=VARCHAR}, 
+      #{empmail,jdbcType=VARCHAR}, #{empname,jdbcType=VARCHAR}, #{empphone,jdbcType=VARCHAR}, 
+      #{empsex,jdbcType=VARCHAR}, #{emppass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.model.Employee" >
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        empId,
+      </if>
+      <if test="empaddress != null" >
+        empAddress,
+      </if>
+      <if test="empage != null" >
+        empAge,
+      </if>
+      <if test="empmail != null" >
+        empMail,
+      </if>
+      <if test="empname != null" >
+        empName,
+      </if>
+      <if test="empphone != null" >
+        empPhone,
+      </if>
+      <if test="empsex != null" >
+        empSex,
+      </if>
+      <if test="emppass != null" >
+        empPass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="empaddress != null" >
+        #{empaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="empage != null" >
+        #{empage,jdbcType=VARCHAR},
+      </if>
+      <if test="empmail != null" >
+        #{empmail,jdbcType=VARCHAR},
+      </if>
+      <if test="empname != null" >
+        #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="empphone != null" >
+        #{empphone,jdbcType=VARCHAR},
+      </if>
+      <if test="empsex != null" >
+        #{empsex,jdbcType=VARCHAR},
+      </if>
+      <if test="emppass != null" >
+        #{emppass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.model.Employee" >
+    update employee
+    <set >
+      <if test="empaddress != null" >
+        empAddress = #{empaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="empage != null" >
+        empAge = #{empage,jdbcType=VARCHAR},
+      </if>
+      <if test="empmail != null" >
+        empMail = #{empmail,jdbcType=VARCHAR},
+      </if>
+      <if test="empname != null" >
+        empName = #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="empphone != null" >
+        empPhone = #{empphone,jdbcType=VARCHAR},
+      </if>
+      <if test="empsex != null" >
+        empSex = #{empsex,jdbcType=VARCHAR},
+      </if>
+      <if test="emppass != null" >
+        empPass = #{emppass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where empId = #{empid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.dubbo.model.Employee" >
+    update employee
+    set empAddress = #{empaddress,jdbcType=VARCHAR},
+      empAge = #{empage,jdbcType=VARCHAR},
+      empMail = #{empmail,jdbcType=VARCHAR},
+      empName = #{empname,jdbcType=VARCHAR},
+      empPhone = #{empphone,jdbcType=VARCHAR},
+      empSex = #{empsex,jdbcType=VARCHAR},
+      empPass = #{emppass,jdbcType=VARCHAR}
+    where empId = #{empid,jdbcType=INTEGER}
+  </update>
+  <select id="login" resultMap="BaseResultMap" parameterType="cn.com.dubbo.model.Employee">
+  	select 
+    <include refid="Base_Column_List" />
+    from employee
+    where empName = #{empname,jdbcType=VARCHAR} AND empPass= #{emppass,jdbcType=VARCHAR}
+  </select>
+</mapper>

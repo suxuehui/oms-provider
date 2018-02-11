@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.ext.Order_item666Mapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.bean.ext.Order_item666" >
+    <id column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="order_delivery_no" property="orderDeliveryNo" jdbcType="VARCHAR" />
+    <result column="goods_list_type" property="goodsListType" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="goods_no_69" property="goodsNo69" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="supply_price" property="supplyPrice" jdbcType="DECIMAL" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="old_price" property="oldPrice" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="price_dis" property="priceDis" jdbcType="DECIMAL" />
+    <result column="goods_sum_fee" property="goodsSumFee" jdbcType="DECIMAL" />
+    <result column="stock_id" property="stockId" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+    <result column="group_status" property="groupStatus" jdbcType="CHAR" />
+    <result column="tm_source" property="tmSource" jdbcType="VARCHAR" />
+    <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+    <result column="stock_status" property="stockStatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_item_id, order_no, order_delivery_no, goods_list_type, goods_type, goods_no, 
+    goods_no_69, name, standard, unit, supply_price, cost_price, old_price, price, amount, 
+    price_dis, goods_sum_fee, stock_id, is_delete, add_user_id, add_time, edit_user_id, 
+    edit_time, group_status, tm_source, goods_status, stock_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.com.dubbo.bean.ext.Order_item666Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.com.dubbo.bean.ext.Order_item666Example" >
+    delete from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.dubbo.bean.ext.Order_item666" >
+    insert into order_item (order_item_id, order_no, order_delivery_no, 
+      goods_list_type, goods_type, goods_no, 
+      goods_no_69, name, standard, 
+      unit, supply_price, cost_price, 
+      old_price, price, amount, 
+      price_dis, goods_sum_fee, stock_id, 
+      is_delete, add_user_id, add_time, 
+      edit_user_id, edit_time, group_status, 
+      tm_source, goods_status, stock_status
+      )
+    values (#{orderItemId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{orderDeliveryNo,jdbcType=VARCHAR}, 
+      #{goodsListType,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, 
+      #{goodsNo69,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{supplyPrice,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL}, 
+      #{oldPrice,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{priceDis,jdbcType=DECIMAL}, #{goodsSumFee,jdbcType=DECIMAL}, #{stockId,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=CHAR}, #{addUserId,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, 
+      #{editUserId,jdbcType=INTEGER}, #{editTime,jdbcType=VARCHAR}, #{groupStatus,jdbcType=CHAR}, 
+      #{tmSource,jdbcType=VARCHAR}, #{goodsStatus,jdbcType=INTEGER}, #{stockStatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.bean.ext.Order_item666" >
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <!--  <if test="orderItemId != null" >
+        order_item_id,
+      </if> -->
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderDeliveryNo != null" >
+        order_delivery_no,
+      </if>
+      <if test="goodsListType != null" >
+        goods_list_type,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsNo != null" >
+        goods_no,
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="supplyPrice != null" >
+        supply_price,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="oldPrice != null" >
+        old_price,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="priceDis != null" >
+        price_dis,
+      </if>
+      <if test="goodsSumFee != null" >
+        goods_sum_fee,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="addUserId != null" >
+        add_user_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+      <if test="groupStatus != null" >
+        group_status,
+      </if>
+      <if test="tmSource != null" >
+        tm_source,
+      </if>
+      <if test="goodsStatus != null" >
+        goods_status,
+      </if>
+      <if test="stockStatus != null" >
+        stock_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryNo != null" >
+        #{orderDeliveryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsListType != null" >
+        #{goodsListType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyPrice != null" >
+        #{supplyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oldPrice != null" >
+        #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceDis != null" >
+        #{priceDis,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSumFee != null" >
+        #{goodsSumFee,jdbcType=DECIMAL},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="addUserId != null" >
+        #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupStatus != null" >
+        #{groupStatus,jdbcType=CHAR},
+      </if>
+      <if test="tmSource != null" >
+        #{tmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null" >
+        #{goodsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stockStatus != null" >
+        #{stockStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.com.dubbo.bean.ext.Order_item666Example" resultType="java.lang.Integer" >
+    select count(*) from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_item
+    <set >
+      <if test="record.orderItemId != null" >
+        order_item_id = #{record.orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderDeliveryNo != null" >
+        order_delivery_no = #{record.orderDeliveryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsListType != null" >
+        goods_list_type = #{record.goodsListType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsType != null" >
+        goods_type = #{record.goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsNo != null" >
+        goods_no = #{record.goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsNo69 != null" >
+        goods_no_69 = #{record.goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standard != null" >
+        standard = #{record.standard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyPrice != null" >
+        supply_price = #{record.supplyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costPrice != null" >
+        cost_price = #{record.costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.oldPrice != null" >
+        old_price = #{record.oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priceDis != null" >
+        price_dis = #{record.priceDis,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsSumFee != null" >
+        goods_sum_fee = #{record.goodsSumFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=CHAR},
+      </if>
+      <if test="record.addUserId != null" >
+        add_user_id = #{record.addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editUserId != null" >
+        edit_user_id = #{record.editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.editTime != null" >
+        edit_time = #{record.editTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupStatus != null" >
+        group_status = #{record.groupStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.tmSource != null" >
+        tm_source = #{record.tmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsStatus != null" >
+        goods_status = #{record.goodsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockStatus != null" >
+        stock_status = #{record.stockStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_item
+    set order_item_id = #{record.orderItemId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      order_delivery_no = #{record.orderDeliveryNo,jdbcType=VARCHAR},
+      goods_list_type = #{record.goodsListType,jdbcType=VARCHAR},
+      goods_type = #{record.goodsType,jdbcType=VARCHAR},
+      goods_no = #{record.goodsNo,jdbcType=VARCHAR},
+      goods_no_69 = #{record.goodsNo69,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      standard = #{record.standard,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      supply_price = #{record.supplyPrice,jdbcType=DECIMAL},
+      cost_price = #{record.costPrice,jdbcType=DECIMAL},
+      old_price = #{record.oldPrice,jdbcType=DECIMAL},
+      price = #{record.price,jdbcType=DECIMAL},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      price_dis = #{record.priceDis,jdbcType=DECIMAL},
+      goods_sum_fee = #{record.goodsSumFee,jdbcType=DECIMAL},
+      stock_id = #{record.stockId,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=CHAR},
+      add_user_id = #{record.addUserId,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      edit_user_id = #{record.editUserId,jdbcType=INTEGER},
+      edit_time = #{record.editTime,jdbcType=VARCHAR},
+      group_status = #{record.groupStatus,jdbcType=CHAR},
+      tm_source = #{record.tmSource,jdbcType=VARCHAR},
+      goods_status = #{record.goodsStatus,jdbcType=INTEGER},
+      stock_status = #{record.stockStatus,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.bean.ext.Order_item666" >
+    update order_item
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryNo != null" >
+        order_delivery_no = #{orderDeliveryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsListType != null" >
+        goods_list_type = #{goodsListType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        goods_no = #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyPrice != null" >
+        supply_price = #{supplyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oldPrice != null" >
+        old_price = #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceDis != null" >
+        price_dis = #{priceDis,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSumFee != null" >
+        goods_sum_fee = #{goodsSumFee,jdbcType=DECIMAL},
+      </if>
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="addUserId != null" >
+        add_user_id = #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id = #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupStatus != null" >
+        group_status = #{groupStatus,jdbcType=CHAR},
+      </if>
+      <if test="tmSource != null" >
+        tm_source = #{tmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null" >
+        goods_status = #{goodsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stockStatus != null" >
+        stock_status = #{stockStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.dubbo.bean.ext.Order_item666" >
+    update order_item
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      order_delivery_no = #{orderDeliveryNo,jdbcType=VARCHAR},
+      goods_list_type = #{goodsListType,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_no = #{goodsNo,jdbcType=VARCHAR},
+      goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      supply_price = #{supplyPrice,jdbcType=DECIMAL},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      old_price = #{oldPrice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      price_dis = #{priceDis,jdbcType=DECIMAL},
+      goods_sum_fee = #{goodsSumFee,jdbcType=DECIMAL},
+      stock_id = #{stockId,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      add_user_id = #{addUserId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      edit_user_id = #{editUserId,jdbcType=INTEGER},
+      edit_time = #{editTime,jdbcType=VARCHAR},
+      group_status = #{groupStatus,jdbcType=CHAR},
+      tm_source = #{tmSource,jdbcType=VARCHAR},
+      goods_status = #{goodsStatus,jdbcType=INTEGER},
+      stock_status = #{stockStatus,jdbcType=CHAR}
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+</mapper>

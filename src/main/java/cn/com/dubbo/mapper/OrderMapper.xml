@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.OrderMapper">
+
+	<resultMap id="BaseResultMap" type="cn.com.dubbo.model.OrderModel" >
+	    <id column="order_no" property="orderNo" jdbcType="VARCHAR" />
+	    <result column="tid" property="tid" jdbcType="VARCHAR" />
+	    <result column="get_time" property="get_time" jdbcType="VARCHAR" />
+	    <result column="log_logistic_company_id" property="logLogisticCompanyId" jdbcType="INTEGER"/>
+	    <result column="multi_channel_order_batch_id" property="multiChannelOrderBatchId" jdbcType="INTEGER"/>
+	    <result column="multi_channel_id" property="multiChannelId" jdbcType="INTEGER" />
+	    <result column="from_media" property="fromMedia" jdbcType="VARCHAR" />
+	    <result column="multi_channel_order_no" property="multiChannelOrderNo" jdbcType="VARCHAR" />
+	    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+	    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+	    <result column="valid" property="valid" jdbcType="VARCHAR" />
+	    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+	    <result column="member_nick" property="memberNick" jdbcType="VARCHAR" />
+	    <result column="is_pay" property="isPay" jdbcType="VARCHAR" />
+	    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+	    <result column="delivery_fee_old" property="deliveryFeeOld" jdbcType="NUMERIC" />
+	    <result column="delivery_fee" property="deliveryFee" jdbcType="NUMERIC" />
+	    <result column="sku_fee" property="skuFee" jdbcType="NUMERIC" />
+	    <result column="order_points" property="orderPoints" jdbcType="NUMERIC"/>
+	    <result column="order_vouchers" property="orderVouchers" jdbcType="NUMERIC" />
+	    <result column="coupon_no" property="couponNo" jdbcType="VARCHAR" />
+	    <result column="activity_discount_fee" property="activityDiscountFee" jdbcType="NUMERIC" />
+	    <result column="paid_fee" property="paidFee" jdbcType="NUMERIC" />
+	    <result column="order_return_fee" property="orderReturnFee" jdbcType="NUMERIC" />
+	    
+	    <result column="supply_price" property="supplyPrice" jdbcType="NUMERIC" />
+	    <result column="order_real_fee" property="orderRealFee" jdbcType="NUMERIC" />
+	    <result column="receive_user" property="receiveUser" jdbcType="INTEGER" />
+	    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+	    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+	    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+	    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+	    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+	    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+	    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+	    
+	    <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
+	    <result column="receive_full_address" property="receiveFullAddress" jdbcType="VARCHAR" />
+	    <result column="receive_longitude" property="longitude" jdbcType="VARCHAR" />
+	    <result column="receive_latitude" property="latitude" jdbcType="VARCHAR" />
+	    
+	    <result column="receive_post" property="receivePost" jdbcType="INTEGER" />
+	    <result column="receive_tel" property="receiveTel" jdbcType="VARCHAR" />
+	    <result column="receive_mobile" property="receiveMobile" jdbcType="VARCHAR" />
+	    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+	    <result column="invoice_content" property="invoiceContent" jdbcType="VARCHAR" />
+	    <result column="order_msg" property="orderMsg" jdbcType="VARCHAR" />
+	    <result column="order_notes" property="orderNotes" jdbcType="VARCHAR" />
+	    <result column="audit_user_id" property="auditUserId" jdbcType="INTEGER" />
+	    <result column="audit_time" property="auditTime" jdbcType="VARCHAR" />
+	    
+	    <result column="is_lock" property="isLock" jdbcType="VARCHAR" />
+	    <result column="lock_time" property="lockTime" jdbcType="VARCHAR" />
+	    <result column="lock_user_id" property="lockUserId" jdbcType="INTEGER" />
+	    <result column="commit_time" property="commitTime" jdbcType="VARCHAR" />
+	    <result column="finish_time" property="finishTime" jdbcType="VARCHAR" />
+	    
+	    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+	    <result column="platform_create_time" property="platformCreateTime" jdbcType="VARCHAR" />
+	    <result column="platform_edit_time" property="platformEditTime" jdbcType="VARCHAR" />
+	    <result column="cancel_user_id" property="cancelUserId" jdbcType="INTEGER" />
+	    <result column="cancel_notes" property="cancelNotes" jdbcType="VARCHAR" />
+	    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+	    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+	    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+	    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+	    <result column="have_cfy" property="haveCfy" jdbcType="VARCHAR" />
+	    <result column="order_pay_fee" property="orderPayFee" jdbcType="NUMERIC" />
+	    <result column="order_fee" property="orderFee" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<resultMap id="OrderItemModelMap" type="cn.com.dubbo.model.OrderItemModel" >
+	    <id column="order_item_id" property="orderItemId" jdbcType="INTEGER" />
+	    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+	    <result column="order_delivery_no" property="orderDeliveryNo" jdbcType="VARCHAR"/>
+	    <result column="goods_list_type" property="goodsListType" jdbcType="VARCHAR" />
+	    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="standard" property="standard" jdbcType="VARCHAR" />
+	    <result column="unit" property="unit" jdbcType="VARCHAR" />
+	    
+	    <result column="supply_price" property="supplyPrice" jdbcType="NUMERIC" />
+	    <result column="cost_price" property="costPrice" jdbcType="NUMERIC" />
+	    <result column="old_price" property="oldPrice" jdbcType="NUMERIC" />
+	    <result column="price" property="price" jdbcType="NUMERIC" />
+	    <result column="amount" property="amount" jdbcType="INTEGER" />
+	    <result column="price_dis" property="priceDis" jdbcType="NUMERIC" />
+	    <result column="goods_sum_fee" property="goodsSumFee" jdbcType="NUMERIC" />
+	    <result column="stock_id" property="stockId" jdbcType="INTEGER" />
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+	    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+	    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+	    <result column="group_status" property="groupStatus" jdbcType="VARCHAR" />
+	    <result column="tm_source" property="tmSource" jdbcType="VARCHAR" /> 
+	     <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+	</resultMap>
+
+   <resultMap id="BaseResultMap1" type="cn.com.dubbo.bean.OrderInfoBackup" >
+    <id column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="get_time" property="get_time" jdbcType="VARCHAR" />
+    <result column="log_logistic_company_id" property="logLogisticCompanyId" jdbcType="INTEGER" />
+    <result column="multi_channel_order_batch_id" property="multiChannelOrderBatchId" jdbcType="BIGINT" />
+    <result column="multi_channel_id" property="multiChannelId" jdbcType="INTEGER" />
+    <result column="from_media" property="fromMedia" jdbcType="VARCHAR" />
+    <result column="multi_channel_order_no" property="multiChannelOrderNo" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="send_status" property="sendStatus" jdbcType="CHAR" />
+    <result column="valid" property="valid" jdbcType="CHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="member_nick" property="memberNick" jdbcType="VARCHAR" />
+    <result column="is_pay" property="isPay" jdbcType="CHAR" />
+    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="delivery_fee_old" property="deliveryFeeOld" jdbcType="DECIMAL" />
+    <result column="delivery_fee" property="deliveryFee" jdbcType="DECIMAL" />
+    <result column="sku_fee" property="skuFee" jdbcType="DECIMAL" />
+    <result column="order_points" property="orderPoints" jdbcType="DECIMAL" />
+    <result column="order_vouchers" property="orderVouchers" jdbcType="DECIMAL" />
+    <result column="coupon_no" property="couponNo" jdbcType="VARCHAR" />
+    <result column="activity_discount_fee" property="activityDiscountFee" jdbcType="DECIMAL" />
+    <result column="paid_fee" property="paidFee" jdbcType="DECIMAL" />
+    <result column="order_pay_fee" property="orderPayFee" jdbcType="DECIMAL" />
+    <result column="order_fee" property="orderFee" jdbcType="DECIMAL" />
+    <result column="order_return_fee" property="orderReturnFee" jdbcType="DECIMAL" />
+    <result column="order_real_fee" property="orderRealFee" jdbcType="DECIMAL" />
+    <result column="supply_price" property="supplyPrice" jdbcType="DECIMAL" />
+    <result column="receive_user" property="receiveUser" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
+    <result column="receive_full_address" property="receiveFullAddress" jdbcType="VARCHAR" />
+    <result column="receive_longitude" property="receiveLongitude" jdbcType="VARCHAR" />
+    <result column="receive_latitude" property="receiveLatitude" jdbcType="VARCHAR" />
+    <result column="receive_post" property="receivePost" jdbcType="INTEGER" />
+    <result column="receive_tel" property="receiveTel" jdbcType="VARCHAR" />
+    <result column="receive_mobile" property="receiveMobile" jdbcType="VARCHAR" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="invoice_content" property="invoiceContent" jdbcType="VARCHAR" />
+    <result column="order_msg" property="orderMsg" jdbcType="VARCHAR" />
+    <result column="order_notes" property="orderNotes" jdbcType="VARCHAR" />
+    <result column="audit_user_id" property="auditUserId" jdbcType="INTEGER" />
+    <result column="audit_time" property="auditTime" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="CHAR" />
+    <result column="lock_time" property="lockTime" jdbcType="VARCHAR" />
+    <result column="lock_user_id" property="lockUserId" jdbcType="INTEGER" />
+    <result column="commit_time" property="commitTime" jdbcType="VARCHAR" />
+    <result column="finish_time" property="finishTime" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="platform_create_time" property="platformCreateTime" jdbcType="VARCHAR" />
+    <result column="platform_edit_time" property="platformEditTime" jdbcType="VARCHAR" />
+    <result column="cancel_user_id" property="cancelUserId" jdbcType="INTEGER" />
+    <result column="cancel_notes" property="cancelNotes" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+    <result column="have_cfy" property="haveCfy" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<insert id="saveOrder" parameterType="cn.com.dubbo.model.OrderModel">
+		INSERT INTO 
+		order_info(order_no,tid,   get_time,    log_logistic_company_id,multi_channel_order_batch_id,multi_channel_id
+		,from_media,multi_channel_order_no,order_type
+		,order_status,valid,member_id,member_nick,is_pay,payment_type,delivery_fee_old,delivery_fee,sku_fee,order_points
+		,order_vouchers,coupon_no,activity_discount_fee,paid_fee,order_pay_fee,order_fee
+		,order_return_fee,order_real_fee,receive_user
+ 		,receive_time,province_id,city_id,area_id,province_name,city_name,area_name
+ 		,receive_address,receive_full_address
+ 		,receive_longitude,receive_latitude,receive_post
+		,receive_tel,receive_mobile,invoice_title,invoice_content 
+		,order_notes
+		,commit_time,platform_create_time,add_user_id,add_time,have_cfy,supply_price
+		) 
+		VALUES(
+		#{orderNo},#{tid},  #{get_time},   #{logLogisticCompanyId},#{multiChannelOrderBatchId},#{multiChannelId}
+		,#{fromMedia},#{multiChannelOrderNo},#{orderType}
+		,#{orderStatus},#{valid},#{memberId},#{memberNick},#{isPay},#{paymentType},#{deliveryFeeOld}
+		,#{deliveryFee},#{skuFee},#{orderPoints}
+		,#{orderVouchers},#{couponNo},#{activityDiscountFee},#{paidFee},#{orderPayFee},#{orderFee}
+		,#{orderReturnFee},#{orderRealFee},#{receiveUser}
+ 		,#{receiveTime},#{provinceId},#{cityId},#{areaId},#{provinceName},#{cityName},#{areaName}
+ 		,#{receiveAddress},#{receiveFullAddress}
+ 		,#{longitude},#{latitude},#{receivePost}
+		,#{receiveTel},#{receiveMobile},#{invoiceTitle},#{invoiceContent} 
+		,#{orderNotes}
+		,#{commitTime},#{platformCreateTime},#{addUserId},#{addTime},#{haveCfy},#{supplyPrice}
+		);
+	</insert>
+	
+    <insert id="saveBatchOrder" useGeneratedKeys="true" parameterType="java.util.List">  
+        INSERT INTO order_info(order_no,log_logistic_company_id,multi_channel_order_batch_id,multi_channel_id
+        ,from_media,multi_channel_order_no
+        ,order_type,order_status,valid,member_id,member_nick,is_pay,payment_type,delivery_fee_old,delivery_fee
+		,sku_fee,order_points
+		,order_vouchers,coupon_no,activity_discount_fee,paid_fee,order_pay_fee,order_fee
+		,order_return_fee,order_real_fee,receive_user
+ 		,receive_time,province_id,city_id,area_id,province_name,city_name,area_name
+ 		,receive_address,receive_full_address
+ 		,receive_longitude,receive_latitude,receive_post
+		,receive_tel,receive_mobile,invoice_title,invoice_content
+		,commit_time,platform_create_time,add_time,have_cfy,order_notes,order_msg
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		 #{item.orderNo},#{item.logLogisticCompanyId},#{item.multiChannelOrderBatchId},#{item.multiChannelId}
+		,#{item.fromMedia},#{item.multiChannelOrderNo},#{item.orderType}
+		,#{item.orderStatus},#{item.valid},#{item.memberId},#{item.memberNick},#{item.isPay},#{item.paymentType},#{item.deliveryFeeOld},#{item.deliveryFee}
+		,#{item.skuFee},#{item.orderPoints}
+		,#{item.orderVouchers},#{item.couponNo},#{item.activityDiscountFee},#{item.paidFee},#{item.orderPayFee}
+		,#{item.orderFee},#{item.orderReturnFee},#{item.orderRealFee},#{item.receiveUser}
+ 		,#{item.receiveTime},#{item.provinceId},#{item.cityId},#{item.areaId},#{item.provinceName},#{item.cityName},#{item.areaName}
+ 		,#{item.receiveAddress},#{item.receiveFullAddress}
+ 		,#{item.longitude},#{item.latitude},#{item.receivePost}
+		,#{item.receiveTel},#{item.receiveMobile},#{item.invoiceTitle},#{item.invoiceContent} 
+		,#{item.commitTime},#{item.platformCreateTime},#{item.addTime},#{item.haveCfy},#{item.orderNotes},#{item.orderMsg}
+		)
+        </foreach>
+    </insert>
+	
+	<insert id="saveOrderItem" parameterType="cn.com.dubbo.model.OrderItemModel">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="orderItemId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		order_item(order_no,goods_type,goods_list_type,goods_no,goods_no_69,name,standard,
+		unit,cost_price,old_price,price,amount,price_dis,goods_sum_fee,
+		add_time,group_status,tm_source,supply_price
+		) 
+		VALUES(
+		#{orderNo},#{goodsType},#{goodsListType},#{goodsNo},#{goodsNo_69},#{name},#{standard},
+		#{unit},#{costPrice},#{oldPrice},#{price},#{amount},#{priceDis},#{goodsSumFee},
+		#{addTime},#{groupStatus},#{tmSource},#{supplyPrice}
+		);
+	</insert>
+	
+	<insert id="saveBatchOrderItem" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="orderItemId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		order_item(order_no,goods_type,goods_list_type,goods_no,goods_no_69,name,standard,
+		unit,cost_price,old_price,price,amount,price_dis,goods_sum_fee,
+		add_time,group_status,tm_source,supply_price
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		#{item.orderNo},#{item.goodsType},#{item.goodsListType},#{item.goodsNo},#{item.goodsNo_69},#{item.name},#{item.standard},
+		#{item.unit},#{item.costPrice},#{item.oldPrice},#{item.price},#{item.amount},#{item.priceDis},#{item.goodsSumFee},
+		#{item.addTime},#{item.groupStatus},#{item.tmSource},#{item.supplyPrice}
+		)
+		</foreach>
+	</insert>
+
+
+	<insert id="saveOrderPaymentLog" parameterType="cn.com.dubbo.model.OrderPaymentLog">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="orderPaymentLogId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		order_item(business_type,business_id,order_payment_id,order_payment_name
+		,payment_no,paid_fee,payment_time,add_time
+		) 
+		VALUES(
+		#{businessType},#{businessId},#{orderPaymentId},#{orderPaymentName}
+		,#{paymentNo},#{paidFee},#{paymentTime},#{addTime}
+		);
+	</insert>
+
+	<select id="batchQueryOrder" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT order_no as orderNo FROM order_info WHERE order_no IN
+		(
+		<foreach collection="list" item="item" index="index" separator="," >
+		 #{item.orderNo}
+		</foreach>
+		);
+	</select>
+	
+	<select id="queryOrders" parameterType="java.util.List" resultMap="BaseResultMap">
+		SELECT * FROM order_info WHERE order_no IN
+		(
+		<foreach collection="list" item="item" index="index" separator="," >
+		 #{item}
+		</foreach>
+		);
+	</select>
+	
+	<select id="batchQueryOrderItem" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT DISTINCT(order_no) as orderNo FROM order_item WHERE order_no in
+		(
+		<foreach collection="list" item="item" index="index" separator="," >
+		 #{item.orderNo}
+		</foreach>
+		);
+	</select>
+
+	<insert id="saveBatchOrderPaymentLog" parameterType="cn.com.dubbo.model.OrderPaymentLog">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="orderPaymentLogId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		order_item(business_type,business_id,order_payment_id,order_payment_name
+		,payment_no,paid_fee,payment_time,add_time
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		#{item.businessType},#{item.businessId},#{item.orderPaymentId},#{item.orderPaymentName}
+		,#{item.paymentNo},#{item.paidFee},#{item.paymentTime},#{item.addTime}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="lastTime" resultType="java.lang.String" parameterType="java.lang.Integer">
+		SELECT multi_channel_order_batch_id FROM order_info WHERE multi_channel_id=4 ORDER BY multi_channel_order_batch_id DESC LIMIT 1;
+	</select>
+	
+	<select id="findOrderByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM order_info WHERE order_no=#{orderNo}
+	</select>
+	
+	<select id="findOrderByMultiOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM order_info WHERE multi_channel_order_no=#{multiChannelNo} AND is_delete='N';
+	</select>
+	
+	<select id="queyBFOrderByMultiOrderNo" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(*) FROM order_info WHERE order_type=1 AND multi_channel_order_no like CONCAT('%',#{multiChannelNo}) AND is_delete='N';
+	</select>
+	
+	<select id="isOrderByNo" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(order_no) FROM order_info WHERE order_no = #{orderNo}
+	</select>
+	
+	<select id="isTid" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(tid) FROM order_info WHERE tid = #{tid}
+	</select>	
+
+	<select id="isOrderByNoANDOrderStatus" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(order_no) FROM order_info WHERE order_no = #{orderNo} and order_status=1
+	</select>
+	
+	<select id="isOrderItemByNo" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(order_no) FROM order_item WHERE order_no = #{orderNo}
+	</select>
+	
+	<select id="isOrderItemByNoANDGoodsNo" resultType="java.lang.Integer" >
+		SELECT COUNT(order_no) FROM order_item WHERE order_no = #{0} and goods_no = #{1}
+	</select>	
+	
+	<update id="updateOrder" parameterType="cn.com.dubbo.model.OrderModel">
+		update order_info
+		<set>
+			<if test="logLogisticCompanyId != null and logLogisticCompanyId !=''">
+				log_logistic_company_id = #{logLogisticCompanyId},
+			</if>
+			<if test="multiChannelOrderBatchId != null and multiChannelOrderBatchId !=''">
+				multi_channel_order_batch_id = #{multiChannelOrderBatchId},
+			</if>
+			<if test="multiChannelId != null and multiChannelId !=''">
+				multi_channel_id = #{multiChannelId},
+			</if>
+			<if test=" multiChannelOrderNo!= null and multiChannelOrderNo !=''">
+				multi_channel_order_no = #{multiChannelOrderNo},
+			</if>
+			<if test="orderType != null and orderType !=''">
+				order_type = #{orderType},
+			</if>
+			<if test="orderStatus != null and orderStatus !=''">
+				order_status = #{orderStatus},
+			</if>
+			
+			<if test="valid != null and valid !=''">
+				valid = #{valid},
+			</if>
+			<if test="memberId != null and memberId !=''">
+				member_id = #{memberId},
+			</if>
+			<if test="memberNick != null and memberNick !=''">
+				member_nick = #{memberNick},
+			</if>
+			<if test="isPay != null and isPay !=''">
+				is_pay = #{isPay},
+			</if>
+			<if test="paymentType != null and paymentType !=''">
+				payment_type = #{paymentType},
+			</if>
+			<if test="deliveryFeeOld != null and deliveryFeeOld !=''">
+				delivery_fee_old = #{deliveryFeeOld},
+			</if>
+			
+			<if test="deliveryFee != null and deliveryFee !=''">
+				delivery_fee = #{deliveryFee},
+			</if>
+			<if test="skuFee != null and skuFee !=''">
+				sku_fee = #{skuFee},
+			</if>
+			<if test="orderPoints != null and orderPoints !=''">
+				order_points = #{orderPoints},
+			</if>
+			<if test="orderVouchers != null and orderVouchers !=''">
+				order_vouchers = #{orderVouchers},
+			</if>
+			<if test="couponNo != null and couponNo !=''">
+				coupon_no = #{couponNo},
+			</if>
+			<if test="paidFee != null and paidFee !=''">
+				paid_fee = #{paidFee},
+			</if>
+			
+			<if test="orderPayFee != null and orderPayFee !=''">
+				order_pay_fee = #{orderPayFee},
+			</if>
+			<if test="orderFee != null and orderFee !=''">
+				order_fee = #{orderFee},
+			</if>
+			<if test="orderReturnFee != null and orderReturnFee !=''">
+				order_return_fee = #{orderReturnFee},
+			</if>
+			<if test="orderRealFee != null and orderRealFee !=''">
+				order_real_fee = #{orderRealFee},
+			</if>
+			<if test="receiveUser != null and receiveUser !=''">
+				receive_user = #{receiveUser},
+			</if>
+			<if test="receiveTime != null and receiveTime !=''">
+				receive_time = #{receiveTime},
+			</if>
+			
+			<if test="provinceId != null and provinceId !=''">
+				province_id = #{provinceId},
+			</if>
+			<if test="cityId != null and cityId !=''">
+				city_id = #{cityId},
+			</if>
+			<if test="areaId != null and areaId !=''">
+				area_id = #{areaId},
+			</if>
+			<if test="provinceName != null and provinceName !=''">
+				province_name = #{provinceName},
+			</if>
+			<if test="cityName != null and cityName !=''">
+				city_name = #{cityName},
+			</if>
+			<if test="areaName != null and areaName !=''">
+				area_name = #{areaName},
+			</if>
+			<if test="receiveAddress != null and receiveAddress !=''">
+				receive_address = #{receiveAddress},
+			</if>
+			<if test="receiveFullAddress != null and receiveFullAddress !=''">
+				receive_full_address = #{receiveFullAddress},
+			</if>
+			
+			<if test="longitude != null and longitude !=''">
+				receive_longitude = #{longitude},
+			</if>
+			<if test="latitude != null and latitude !=''">
+				receive_latitude = #{latitude},
+			</if>
+			<if test="receivePost != null and receivePost !=''">
+				receive_post = #{receivePost},
+			</if>
+			<if test="receiveTel != null and receiveTel !=''">
+				receive_tel = #{receiveTel},
+			</if>
+			<if test="receiveMobile != null and receiveMobile !=''">
+				receive_mobile = #{receiveMobile},
+			</if>
+			
+			<if test="invoiceTitle != null and invoiceTitle !=''">
+				invoice_title = #{invoiceTitle},
+			</if>
+			<if test="invoiceContent != null and invoiceContent !=''">
+				invoice_content = #{invoiceContent},
+			</if>
+			<if test="commitTime != null and commitTime !=''">
+				commit_time = #{commitTime},
+			</if>
+			<if test="platformCreateTime != null and platformCreateTime !=''">
+				platform_create_time = #{platformCreateTime},
+			</if>
+			<if test="addTime != null and addTime !=''">
+				add_time = #{addTime},
+			</if>
+			
+			<if test="orderMsg != null and orderMsg !=''">
+				order_msg = #{orderMsg},
+			</if>
+			<if test="orderNotes != null and orderNotes !=''">
+				order_notes = #{orderNotes},
+			</if>
+			<if test="auditUserId != null and auditUserId !=''">
+				audit_user_id = #{auditUserId},
+			</if>
+			<if test="auditTime != null and auditTime !=''">
+				audit_time = #{auditTime},
+			</if>
+			<if test="isLock != null and isLock !=''">
+				is_lock = #{isLock},
+			</if>
+			<if test="lockTime != null and lockTime !=''">
+				lock_time = #{lockTime},
+			</if>
+			<if test="lockUserId != null and lockUserId !=''">
+				lock_user_id = #{lockUserId},
+			</if>
+			
+			<if test="finishTime != null and finishTime !=''">
+				finish_time = #{finishTime},
+			</if>
+			<if test="cancelTime != null and cancelTime !=''">
+				cancel_time = #{cancelTime},
+			</if>
+			<if test="platformEditTime != null and platformEditTime !=''">
+				platform_edit_time = #{platformEditTime},
+			</if>
+			<if test="cancelUserId != null and cancelUserId !=''">
+				cancel_user_id = #{cancelUserId},
+			</if>
+			<if test="cancelNotes != null and cancelNotes !=''">
+				cancel_notes = #{cancelNotes},
+			</if>
+			
+			<if test="isDelete != null and isDelete !=''">
+				is_delete = #{isDelete},
+			</if>
+			<if test="addUserId != null and addUserId !=''">
+				add_user_id = #{addUserId},
+			</if>
+			<if test="editUserId != null and editUserId !=''">
+				edit_user_id = #{editUserId},
+			</if>
+			<if test="editTime != null and editTime !=''">
+				edit_time = #{editTime},
+			</if>
+			<if test="supplyPrice != null and supplyPrice !=''">
+				supply_price = #{supplyPrice},
+			</if>
+			<if test="haveCfy != null and haveCfy !=''">
+				have_cfy = #{haveCfy},
+			</if>
+		</set>
+		where order_no = #{orderNo}
+	</update>
+
+	<update id="updateOrderStatus" parameterType="cn.com.dubbo.model.OrderModel">
+		update order_info
+		<set>
+			<if test="orderStatus != null and orderStatus !=''">
+				order_status = #{orderStatus},
+			</if>
+		</set>
+		where order_no = #{orderNo}
+	</update>
+		
+	<update id="updateBatchOrder"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+            update order_info
+			<set>
+				<if test="item.logLogisticCompanyId != null and item.logLogisticCompanyId !=''">
+					log_logistic_company_id = #{item.logLogisticCompanyId},
+				</if>
+				<if test="item.multiChannelOrderBatchId != null and item.multiChannelOrderBatchId !=''">
+					multi_channel_order_batch_id = #{item.multiChannelOrderBatchId},
+				</if>
+				<if test="item.multiChannelId != null and item.multiChannelId !=''">
+					multi_channel_id = #{item.multiChannelId},
+				</if>
+				<if test="item.multiChannelOrderNo!= null and item.multiChannelOrderNo !=''">
+					multi_channel_order_no = #{item.multiChannelOrderNo},
+				</if>
+				<if test="item.orderType != null and item.orderType !=''">
+					order_type = #{item.orderType},
+				</if>
+				<if test="item.orderStatus != null and item.orderStatus !=''">
+					order_status = #{item.orderStatus},
+				</if>
+				
+				<if test="item.valid != null and item.valid !=''">
+					valid = #{item.valid},
+				</if>
+				<if test="item.memberId != null and item.memberId !=''">
+					member_id = #{item.memberId},
+				</if>
+				<if test="item.memberNick != null and item.memberNick !=''">
+					member_nick = #{item.memberNick},
+				</if>
+				<if test="item.isPay != null and item.isPay !=''">
+					is_pay = #{item.isPay},
+				</if>
+				<if test="item.paymentType != null and item.paymentType !=''">
+					payment_type = #{item.paymentType},
+				</if>
+				<if test="item.deliveryFeeOld != null and item.deliveryFeeOld !=''">
+					delivery_fee_old = #{item.deliveryFeeOld},
+				</if>
+				
+				<if test="item.deliveryFee != null and item.deliveryFee !=''">
+					delivery_fee = #{item.deliveryFee},
+				</if>
+				<if test="item.skuFee != null and item.skuFee !=''">
+					sku_fee = #{item.skuFee},
+				</if>
+				<if test="item.orderPoints != null and item.orderPoints !=''">
+					order_points = #{item.orderPoints},
+				</if>
+				<if test="item.orderVouchers != null and item.orderVouchers !=''">
+					order_vouchers = #{item.orderVouchers},
+				</if>
+				<if test="item.couponNo != null and item.couponNo !=''">
+					coupon_no = #{item.couponNo},
+				</if>
+				<if test="item.paidFee != null and item.paidFee !=''">
+					paid_fee = #{item.paidFee},
+				</if>
+				
+				<if test="item.orderPayFee != null and item.orderPayFee !=''">
+					order_pay_fee = #{item.orderPayFee},
+				</if>
+				<if test="item.orderFee != null and item.orderFee !=''">
+					order_fee = #{item.orderFee},
+				</if>
+				<if test="item.orderReturnFee != null and item.orderReturnFee !=''">
+					order_return_fee = #{item.orderReturnFee},
+				</if>
+				<if test="item.orderRealFee != null and item.orderRealFee !=''">
+					order_real_fee = #{item.orderRealFee},
+				</if>
+				<if test="item.receiveUser != null and item.receiveUser !=''">
+					receive_user = #{item.receiveUser},
+				</if>
+				<if test="item.receiveTime != null and item.receiveTime !=''">
+					receive_time = #{item.receiveTime},
+				</if>
+				
+				<if test="item.provinceId != null and item.provinceId !=''">
+					province_id = #{item.provinceId},
+				</if>
+				<if test="item.cityId != null and item.cityId !=''">
+					city_id = #{item.cityId},
+				</if>
+				<if test="item.areaId != null and item.areaId !=''">
+					area_id = #{item.areaId},
+				</if>
+				<if test="item.provinceName != null and item.provinceName !=''">
+					province_name = #{item.provinceName},
+				</if>
+				<if test="item.cityName != null and item.cityName !=''">
+					city_name = #{item.cityName},
+				</if>
+				<if test="item.areaName != null and item.areaName !=''">
+					area_name = #{item.areaName},
+				</if>
+				<if test="item.receiveAddress != null and item.receiveAddress !=''">
+					receive_address = #{item.receiveAddress},
+				</if>
+				<if test="item.receiveFullAddress != null and item.receiveFullAddress !=''">
+					receive_full_address = #{item.receiveFullAddress},
+				</if>
+				
+				<if test="item.longitude != null and item.longitude !=''">
+					receive_longitude = #{item.longitude},
+				</if>
+				<if test="item.latitude != null and item.latitude !=''">
+					receive_latitude = #{item.latitude},
+				</if>
+				<if test="item.receivePost != null and item.receivePost !=''">
+					receive_post = #{item.receivePost},
+				</if>
+				<if test="item.receiveTel != null and item.receiveTel !=''">
+					receive_tel = #{item.receiveTel},
+				</if>
+				<if test="item.receiveMobile != null and item.receiveMobile !=''">
+					receive_mobile = #{item.receiveMobile},
+				</if>
+				
+				<if test="item.invoiceTitle != null and item.invoiceTitle !=''">
+					invoice_title = #{item.invoiceTitle},
+				</if>
+				<if test="item.invoiceContent != null and item.invoiceContent !=''">
+					invoice_content = #{item.invoiceContent},
+				</if>
+				<if test="item.commitTime != null and item.commitTime !=''">
+					commit_time = #{item.commitTime},
+				</if>
+				<if test="item.platformCreateTime != null and item.platformCreateTime !=''">
+					platform_create_time = #{item.platformCreateTime},
+				</if>
+				<if test="item.addTime != null and item.addTime !=''">
+					add_time = #{item.addTime},
+				</if>
+				
+				<if test="item.orderMsg != null and item.orderMsg !=''">
+					order_msg = #{item.orderMsg},
+				</if>
+				<if test="item.orderNotes != null and item.orderNotes !=''">
+					order_notes = #{item.orderNotes},
+				</if>
+				<if test="item.auditUserId != null and item.auditUserId !=''">
+					audit_user_id = #{item.auditUserId},
+				</if>
+				<if test="item.auditTime != null and item.auditTime !=''">
+					audit_time = #{item.auditTime},
+				</if>
+				<if test="item.isLock != null and item.isLock !=''">
+					is_lock = #{item.isLock},
+				</if>
+				<if test="item.lockTime != null and item.lockTime !=''">
+					lock_time = #{item.lockTime},
+				</if>
+				<if test="item.lockUserId != null and item.lockUserId !=''">
+					lock_user_id = #{item.lockUserId},
+				</if>
+				
+				<if test="item.finishTime != null and item.finishTime !=''">
+					finish_time = #{item.finishTime},
+				</if>
+				<if test="item.cancelTime != null and item.cancelTime !=''">
+					cancel_time = #{item.cancelTime},
+				</if>
+				<if test="item.platformEditTime != null and item.platformEditTime !=''">
+					platform_edit_time = #{item.platformEditTime},
+				</if>
+				<if test="item.cancelUserId != null and item.cancelUserId !=''">
+					cancel_user_id = #{item.cancelUserId},
+				</if>
+				<if test="item.cancelNotes != null and item.cancelNotes !=''">
+					cancel_notes = #{item.cancelNotes},
+				</if>
+				
+				<if test="item.isDelete != null and item.isDelete !=''">
+					is_delete = #{item.isDelete},
+				</if>
+				<if test="item.addUserId != null and item.addUserId !=''">
+					add_user_id = #{item.addUserId},
+				</if>
+				<if test="item.editUserId != null and item.editUserId !=''">
+					edit_user_id = #{item.editUserId},
+				</if>
+				<if test="item.editTime != null and item.editTime !=''">
+					edit_time = #{item.editTime},
+				</if>
+				<if test="item.supplyPrice != null and item.supplyPrice !=''">
+					supply_price = #{item.supplyPrice},
+				</if>
+				<if test="item.haveCfy != null and item.haveCfy !=''">
+					have_cfy = #{item.haveCfy},
+				</if>
+			</set>
+			where order_no = #{item.orderNo}
+       </foreach>
+    </update>
+    
+	<select id="getOrderNoListByOrderStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select order_no from  order_info WHERE order_status=#{order_status}
+	</select>
+	
+	<select id="getOrderItemModelList" resultMap="OrderItemModelMap" parameterType="java.lang.String">
+		select order_no,goods_no,order_item_id from  order_item WHERE order_no=#{order_no}
+	</select>
+
+	<select id="getOrderItemModelList_NotTM" resultMap="OrderItemModelMap" parameterType="java.lang.String">
+		<!-- 
+		此语句查不出goods_no_69为空的订单明细
+		select order_no,goods_no,order_item_id from  order_item WHERE order_no=#{order_no}   AND goods_no_69 NOT LIKE 'TM%'
+		 -->
+		select order_no,goods_no,order_item_id from  order_item WHERE order_no=#{order_no}   AND (goods_list_type != 'GROUP'  OR goods_no_69 NOT LIKE  'TM%')
+		
+	</select>
+		
+	<select id="queryOrderItems" resultMap="OrderItemModelMap" parameterType="java.lang.String">
+		select * from  order_item WHERE order_no=#{order_no}
+	</select>
+	
+	<select id="pageQueryOrderList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from order_info 
+		WHERE order_status=#{orderState} 
+		AND order_type=0
+		<if test="multiChannelId != null and multiChannelId !=''">
+			 and multi_channel_id = #{multiChannelId} 
+		</if>
+		<if test="haveCfy != null and haveCfy !=''">
+			 and have_cfy = #{haveCfy}
+		</if>
+		<![CDATA[
+			AND add_time<date_sub(now(),interval 180 day_second)
+		]]>
+		limit #{pageIndex},#{pageSize};
+	</select>
+	
+	<select id="pageQueryOrderListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(order_no) from order_info 
+		WHERE order_status=#{orderState}
+		AND order_type=0
+		<if test="multiChannelId != null and multiChannelId !=''">
+			 and multi_channel_id = #{multiChannelId}
+		</if>
+		<if test="haveCfy != null and haveCfy !=''">
+			 and have_cfy = #{haveCfy}
+		</if>
+		<![CDATA[
+			AND add_time<date_sub(now(),interval 180 day_second)
+		]]>
+	</select>
+	
+    <delete id="deleteOrder" parameterType="java.lang.String">
+        delete from order_info where order_no=#{orderNo}
+    </delete>
+    
+    <update id="updateOrderItem" parameterType="cn.com.dubbo.model.OrderItemModel">
+    	update order_item
+		<set>
+			<if test="orderDeliveryNo != null and orderDeliveryNo !=''">
+				order_delivery_no = #{orderDeliveryNo},
+			</if>
+			<if test="goodsListType != null and goodsListType !=''">
+				goods_list_type = #{goodsListType},
+			</if>
+			<if test="goodsType != null and goodsType !=''">
+				goods_type = #{goodsType},
+			</if>
+			
+			<if test="goodsNo != null and goodsNo !=''">
+				goods_no = #{goodsNo},
+			</if>
+			<if test="goodsNo_69 != null and goodsNo_69 !=''">
+				goods_no_69 = #{goodsNo_69},
+			</if>
+			<if test="name != null and name !=''">
+				name = #{name},
+			</if>
+			<if test="standard != null and standard !=''">
+				standard = #{standard},
+			</if>
+			<if test="costPrice != null and costPrice !=''">
+				cost_price = #{costPrice},
+			</if>
+			<if test="oldPrice != null and oldPrice !=''">
+				old_price = #{oldPrice},
+			</if>
+			<if test="price != null and price !=''">
+				price = #{price},
+			</if>
+			<if test="amount != null and amount !=''">
+				amount = #{amount},
+			</if>
+			<if test="priceDis != null and priceDis !=''">
+				price_dis = #{priceDis},
+			</if>
+			<if test="goodsSumFee != null and goodsSumFee !=''">
+				goods_sum_fee = #{goodsSumFee},
+			</if>
+			<if test="stockId != null and stockId !=''">
+				stock_id = #{stockId},
+			</if>
+			<if test="isDelete != null and isDelete !=''">
+				is_delete = #{isDelete},
+			</if>
+			<if test="addUserId != null and addUserId !=''">
+				add_user_id = #{addUserId},
+			</if>
+			<if test="addTime != null and addTime !=''">
+				add_time = #{addTime},
+			</if>
+			<if test="editUserId != null and editUserId !=''">
+				edit_user_id = #{editUserId},
+			</if>
+			<if test="editTime != null and editTime !=''">
+				edit_time = #{editTime},
+			</if>
+			<if test="groupStatus != null and groupStatus !=''">
+				group_status = #{groupStatus},
+			</if>
+			<if test="tmSource != null and tmSource !=''">
+				tm_source = #{tmSource},
+			</if>
+			<if test="supplyPrice != null and supplyPrice !=''">
+				supply_price = #{supplyPrice},
+			</if>
+		</set>
+		where order_item_id=#{orderItemId}
+    </update>
+    
+    <update id="updateBatchOrderItem"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update order_item
+			<set>
+				<if test="item.orderDeliveryNo != null and item.orderDeliveryNo !=''">
+					order_delivery_no = #{item.orderDeliveryNo},
+				</if>
+				<if test="item.goodsListType != null and item.goodsListType !=''">
+					goods_list_type = #{item.goodsListType},
+				</if>
+				<if test="item.goodsType != null and item.goodsType !=''">
+					goods_type = #{item.goodsType},
+				</if>
+				
+				<if test="item.goodsNo != null and item.goodsNo !=''">
+					goods_no = #{item.goodsNo},
+				</if>
+				<if test="item.goodsNo_69 != null and item.goodsNo_69 !=''">
+					goods_no_69 = #{item.goodsNo_69},
+				</if>
+				<if test="item.name != null and item.name !=''">
+					name = #{item.name},
+				</if>
+				<if test="item.standard != null and item.standard !=''">
+					standard = #{item.standard},
+				</if>
+				<if test="item.costPrice != null and item.costPrice !=''">
+					cost_price = #{item.costPrice},
+				</if>
+				<if test="item.oldPrice != null and item.oldPrice !=''">
+					old_price = #{item.oldPrice},
+				</if>
+				<if test="item.price != null and item.price !=''">
+					price = #{item.price},
+				</if>
+				<if test="item.amount != null and item.amount !=''">
+					amount = #{item.amount},
+				</if>
+				<if test="item.priceDis != null and item.priceDis !=''">
+					price_dis = #{item.priceDis},
+				</if>
+				<if test="item.goodsSumFee != null and item.goodsSumFee !=''">
+					goods_sum_fee = #{item.goodsSumFee},
+				</if>
+				<if test="item.stockId != null and item.stockId !=''">
+					stock_id = #{item.stockId},
+				</if>
+				<if test="item.isDelete != null and item.isDelete !=''">
+					is_delete = #{item.isDelete},
+				</if>
+				<if test="item.addUserId != null and item.addUserId !=''">
+					add_user_id = #{item.addUserId},
+				</if>
+				<if test="item.addTime != null and item.addTime !=''">
+					add_time = #{item.addTime},
+				</if>
+				<if test="item.editUserId != null and item.editUserId !=''">
+					edit_user_id = #{item.editUserId},
+				</if>
+				<if test="item.editTime != null and item.editTime !=''">
+					edit_time = #{item.editTime},
+				</if>
+				<if test="item.groupStatus != null and item.groupStatus !=''">
+					group_status = #{item.groupStatus},
+				</if>
+				<if test="item.tmSource != null and item.tmSource !=''">
+					tm_source = #{item.tmSource},
+				</if>
+				<if test="item.supplyPrice != null and item.supplyPrice !=''">
+					supply_price = #{item.supplyPrice},
+				</if>
+			</set>
+			where order_item_id = #{item.orderItemId}
+       </foreach>
+    </update>
+  
+    <update id="updateOrderDeliveryNo_OrderItem" parameterType="cn.com.dubbo.model.OrderItemModel">
+    	update order_item
+		<set>
+			<if test="orderDeliveryNo != null and orderDeliveryNo !=''">
+				order_delivery_no = #{orderDeliveryNo},
+			</if>
+		</set>
+		where order_item_id=#{orderItemId}
+    </update>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from order_info where order_no =#{order_no}
+    </select>
+    <select id="queryByMap" resultMap="BaseResultMap" parameterType="map">
+    	SELECT s.CODE_NOTES AS orderDesc,a.* FROM  order_info a  
+    	  JOIN sys_code s on a.order_status = s.CODE_ID
+		<where>
+			<if test="multi_channel_id != '' and multi_channel_id !=null" >
+			AND a.multi_channel_id=#{multi_channel_id}
+			</if>
+			<if test="startTime != null and endTime !=null" >
+			AND a.add_time &gt; #{startTime} AND a.add_time &lt; #{endTime}
+			</if>
+			AND a.order_status=5 AND a.is_delete = 'N'
+	  	</where>
+	  	ORDER BY a.add_time DESC LIMIT #{currentPage},#{pageSize} 
+    </select>
+     <select id="querySendByMap" resultMap="BaseResultMap" parameterType="map">
+    	SELECT s.CODE_NOTES AS orderDesc,a.* FROM  order_info a  
+    	  JOIN sys_code s on a.order_status = s.CODE_ID
+		<where>
+			<if test="multi_channel_id != '' and multi_channel_id !=null" >
+			AND a.multi_channel_id=#{multi_channel_id}
+			</if>
+			<if test="startTime != null and endTime !=null" >
+			AND a.add_time &gt; #{startTime} AND a.add_time &lt; #{endTime}
+			</if>
+			AND a.order_status=6 or a.order_status=9 AND a.is_delete = 'N'
+	  	</where>
+	  	ORDER BY a.add_time DESC LIMIT #{currentPage},#{pageSize} 
+    </select>
+    <select id="queryUpdateOrderByMap" resultMap="BaseResultMap" parameterType="map">
+    	SELECT s.CODE_NOTES AS orderDesc,a.* FROM  order_info a  
+    	  JOIN sys_code s on a.order_status = s.CODE_ID
+		<where>
+			<if test="multi_channel_id != '' and multi_channel_id !=null" >
+			AND a.multi_channel_id=#{multi_channel_id}
+			</if>
+			<!-- <if test="startTime != null and endTime !=null" >
+			AND a.add_time &gt; #{startTime} AND a.add_time &lt; #{endTime}
+			</if> -->
+			AND a.is_delete = 'N'
+	  	</where>
+	  	ORDER BY a.add_time DESC LIMIT #{currentPage},#{pageSize} 
+    </select>
+    <select id="queryRefundByMap" resultMap="BaseResultMap" parameterType="map">
+    	SELECT s.CODE_NOTES AS orderDesc,a.* FROM  order_info a  
+    	  JOIN sys_code s on a.order_status = s.CODE_ID
+		<where>
+			<if test="multi_channel_id != '' and multi_channel_id !=null" >
+			AND a.multi_channel_id=#{multi_channel_id}
+			</if>
+			<if test="startTime != null and endTime !=null" >
+			AND a.add_time &gt; #{startTime} AND a.add_time &lt; #{endTime}
+			</if>
+			AND a.order_status=10 or a.order_status=11 AND a.is_delete = 'N'
+			<if test="orderNo != '' and orderNo !=null" >
+			AND a.order_no=#{orderNo}
+			</if>
+	  	</where>
+	  	ORDER BY a.add_time DESC LIMIT #{currentPage},#{pageSize} 
+    </select>
+    <select id="queryOrderItemsOutGroup" resultMap="OrderItemModelMap" parameterType="java.lang.String">
+		SELECT * FROM  order_item WHERE order_no=#{order_no} AND goods_list_type != 'GROUP'
+	</select>
+    <select id="queryItemBymap" resultMap="OrderItemModelMap" parameterType="map">
+    	SELECT * FROM order_item WHERE order_no=#{order_no} AND goods_no=#{goods_no}
+    </select>
+    <select id="queryOrderItemsStatus" resultMap="OrderItemModelMap" parameterType="java.lang.String">
+		SELECT * FROM  order_item WHERE goods_list_type != 'GROUP' AND goods_status = 10 OR goods_status = 11 AND order_no=#{order_no} 
+	</select>
+	
+    <update id="updateOrderItemBymap" parameterType="map">
+    	UPDATE order_item
+		<set>
+			<if test="stock_id != null and stock_id !=''">
+				stock_id = #{stock_id},
+			</if>
+		</set>
+		WHERE order_no=#{order_no} AND goods_no = #{goods_no}
+    </update>
+    
+ 
+     <select id="queryMaxDay" resultType="java.lang.String" parameterType="java.lang.String">
+		select order_date from order_day_statistic  ORDER BY order_date DESC LIMIT 1
+	</select>
+	
+	<insert id="createOrderStatistic"  parameterType="java.util.Map" >
+		 INSERT INTO order_day_statistic(order_date,sku_fee,paid_fee,supply_price,multi_channel_id)  
+		 select DATE_FORMAT(platform_create_time,'%Y-%m-%d') ,sum(sku_fee),sum(paid_fee),sum(supply_price),multi_channel_id
+	 	 from order_info d 
+	 	 where platform_create_time like CONCAT(#{date},'%');
+	 	 GROUP BY DATE_FORMAT(platform_create_time,'%Y-%m-%d'),multi_channel_id order by platform_create_time 
+	</insert>
+	
+ 
+	<update id="updateTotalOrder" parameterType="cn.com.dubbo.model.OrderModel">
+		update order_info  
+				tid = #{tid},
+				log_logistic_company_id = #{logLogisticCompanyId},
+				multi_channel_order_batch_id = #{multiChannelOrderBatchId},
+				multi_channel_id = #{multiChannelId},
+				multi_channel_order_no = #{multiChannelOrderNo},
+				order_type = #{orderType},
+				order_status = #{orderStatus},
+				valid = #{valid},
+				member_id = #{memberId},
+				member_nick = #{memberNick},
+				is_pay = #{isPay},
+				payment_type = #{paymentType},
+				delivery_fee_old = #{deliveryFeeOld},
+				delivery_fee = #{deliveryFee},
+				sku_fee = #{skuFee},
+				order_points = #{orderPoints},
+				order_vouchers = #{orderVouchers},
+				coupon_no = #{couponNo},
+				paid_fee = #{paidFee},
+				order_pay_fee = #{orderPayFee},
+				order_fee = #{orderFee},
+				order_return_fee = #{orderReturnFee},
+				order_real_fee = #{orderRealFee},
+				receive_user = #{receiveUser},
+				receive_time = #{receiveTime},
+				province_id = #{provinceId},
+				city_id = #{cityId},
+				area_id = #{areaId},
+				province_name = #{provinceName},
+				city_name = #{cityName},
+				area_name = #{areaName},
+				receive_address = #{receiveAddress},
+				receive_full_address = #{receiveFullAddress},
+				
+				
+				receive_longitude = #{longitude},
+				receive_latitude = #{latitude},
+				receive_post = #{receivePost},
+				receive_tel = #{receiveTel},
+				receive_mobile = #{receiveMobile},
+				invoice_title = #{invoiceTitle},
+				invoice_content = #{invoiceContent},
+				commit_time = #{commitTime},
+				platform_create_time = #{platformCreateTime},
+				add_time = #{addTime},
+				order_msg = #{orderMsg},
+				order_notes = #{orderNotes},
+				audit_user_id = #{auditUserId},
+				audit_time = #{auditTime},
+				is_lock = #{isLock},
+				lock_time = #{lockTime},
+				lock_user_id = #{lockUserId},
+				finish_time = #{finishTime},
+				cancel_time = #{cancelTime},
+				platform_edit_time = #{platformEditTime},
+				cancel_user_id = #{cancelUserId},
+				cancel_notes = #{cancelNotes},
+				is_delete = #{isDelete},
+				add_user_id = #{addUserId},
+				edit_user_id = #{editUserId},
+				edit_time = #{editTime},
+				supply_price = #{supplyPrice},
+				from_media = #{fromMedia},
+				activity_discount_fee = #{activityDiscountFee},
+				have_cfy = #{haveCfy}
+		where order_no = #{orderNo}
+	</update>
+	
+  <select id="selectByOrderNO" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+   		select  * from order_info where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  	
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_info
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </delete>	
+  
+  <select id="selectTidByOrderNO" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   		select  order_no,tid from order_info where order_no = #{orderNo}
+  </select>
+  
+  <select id="selectTid" resultType="java.lang.Integer" parameterType="java.lang.String" >
+   		select  count(tid) from order_info where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+   
+  <select id="isExistByTidAndOrderNO" resultType="java.lang.Integer"  parameterType="cn.com.dubbo.model.OrderModel"  >
+   		select  count(tid) from order_info where tid = #{tid,jdbcType=VARCHAR} AND order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByTid" parameterType="java.lang.String" >
+    delete from order_info
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>	
+  
+  <update id="updateOrderNoByTid" parameterType="cn.com.dubbo.model.OrderModel" >
+		update order_info
+		set order_no = '123456111'
+		where order_no = #{orderNo}
+  </update>
+  
+  <update id="updateOrderModel_orderNo" parameterType="cn.com.dubbo.model.OrderModel" >
+    update order_info
+    set order_no = #{tid}
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateTid" parameterType="cn.com.dubbo.model.OrderModel" >
+    update order_info
+    set tid = #{tid},get_time = #{get_time}
+    where order_no = #{orderNo} AND tid is Null
+  </update> 
+  
+  <!-- 现在这个方法,TM,JD都在用 -->
+	<update id="updateOrderStatus_TM" parameterType="cn.com.dubbo.model.OrderModel">
+		update order_info set order_status = #{orderStatus},get_time = #{get_time},edit_time = #{editTime}
+		<if test="sendStatus != null and sendStatus !=''">
+		,send_status = #{sendStatus}
+		</if>
+		where tid = #{tid}
+	</update>
+	
+	<insert id="saveOrder_TM" parameterType="cn.com.dubbo.model.OrderModel" >
+		INSERT INTO 
+		order_info(order_no,tid,   get_time,    log_logistic_company_id,multi_channel_order_batch_id,multi_channel_id
+		,from_media,multi_channel_order_no,order_type
+		,order_status,valid,member_id,member_nick,is_pay,payment_type,delivery_fee_old,delivery_fee,sku_fee,order_points
+		,order_vouchers,coupon_no,activity_discount_fee,paid_fee,order_pay_fee,order_fee
+		,order_return_fee,order_real_fee,receive_user
+ 		,receive_time,province_id,city_id,area_id,province_name,city_name,area_name
+ 		,receive_address,receive_full_address
+ 		,receive_longitude,receive_latitude,receive_post
+		,receive_tel,receive_mobile,invoice_title,invoice_content 
+		,order_notes
+		,commit_time,platform_create_time,add_user_id,add_time,have_cfy,send_status
+		) 
+		
+		SELECT
+		 #{orderNo},#{tid},  #{get_time},   #{logLogisticCompanyId},#{multiChannelOrderBatchId},#{multiChannelId}
+		,#{fromMedia},#{multiChannelOrderNo},#{orderType}
+		,#{orderStatus},#{valid},#{memberId},#{memberNick},#{isPay},#{paymentType},#{deliveryFeeOld}
+		,#{deliveryFee},#{skuFee},#{orderPoints}
+		,#{orderVouchers},#{couponNo},#{activityDiscountFee},#{paidFee},#{orderPayFee},#{orderFee}
+		,#{orderReturnFee},#{orderRealFee},#{receiveUser}
+ 		,#{receiveTime},#{provinceId},#{cityId},#{areaId},#{provinceName},#{cityName},#{areaName}
+ 		,#{receiveAddress},#{receiveFullAddress}
+ 		,#{longitude},#{latitude},#{receivePost}
+		,#{receiveTel},#{receiveMobile},#{invoiceTitle},#{invoiceContent} 
+		,#{orderNotes}
+		,#{commitTime},#{platformCreateTime},#{addUserId},#{addTime},#{haveCfy},#{sendStatus}		
+		FROM DUAL WHERE NOT EXISTS(SELECT tid FROM order_info WHERE tid = #{tid});
+	</insert>	      
+	
+	<!-- 订单状态变为7 -->
+	<update id="updateOrderCancleStatus">
+		update order_info set order_status = 7 where order_no = #{orderNo}
+	</update>          
+	
+	<select id="isOrderByMulti_channel_order_no" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT COUNT(multi_channel_order_no) FROM order_info WHERE multi_channel_order_no = #{multi_channel_order_no}
+	</select>
+	
+</mapper>

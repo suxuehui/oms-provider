@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.OutStockMapper">
+	
+	<resultMap id="BaseResultMap" type="cn.com.dubbo.bean.EOrderBatchNO" >
+		<result column="e_ordernumber" property="eOrderNumber" jdbcType="VARCHAR" />
+	    <result column="product_id" property="productId" jdbcType="INTEGER" />
+	    <result column="batchno" property="batchno" jdbcType="VARCHAR" />
+	    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+	    <result column="serial_number" property="goodsNo" jdbcType="VARCHAR" />
+	    <result column="barcode" property="goods69" jdbcType="VARCHAR" />
+	    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	    <result column="reduceAmount" property="reduceAmount" jdbcType="INTEGER" />
+  	</resultMap>
+	
+	
+	
+	<select id="queryBatchnoItems" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT epsk.product_id,epsk.batchno,epsk.quantity,epds.serial_number,epds.barcode
+		FROM e_pstock epsk
+		LEFT JOIN e_products epds ON epsk.product_id=epds.product_id
+		WHERE epds.serial_number=#{goodsNo};
+	</select>
+	
+	
+	<insert id="saveSalesOrderBatchNo" parameterType="cn.com.dubbo.bean.EOrderBatchNO">
+			INSERT INTO 
+			e_salesorderbatchno(e_ordernumber,p_id,batchno,quantity,create_time
+			) 
+			VALUES(
+			#{eOrderNumber},#{productId},#{batchno},#{quantity},#{createTime}
+			);
+	</insert>
+	
+	<insert id="saveOrderState" parameterType="java.lang.String">
+		INSERT INTO 
+			e_orderstate(e_ordernumber
+			) 
+			VALUES(
+			#{eOrdernumber}
+			);
+	</insert>
+	
+	<insert id="saveOrderdetail" parameterType="cn.com.dubbo.bean.EOrderBatchNO">
+		INSERT INTO 
+			e_salesorderdetail(e_ordernumber,p_id,quantity,saleprice,totalmoney) 
+			VALUES(
+			#{eOrderNumber},#{productId},#{quantity},#{salePrice},#{totalPrice}
+			);
+	</insert>
+	
+	<insert id="saveOrderIndex" parameterType="cn.com.dubbo.bean.EOrderBatchNO">
+		INSERT INTO 
+			e_saleorderindex(c_id,billdate,e_ordernumber) 
+			VALUES(
+			#{multiChannelId},#{createTime},#{eOrderNumber}
+			);
+	</insert>
+	
+	<update id="updatePstock" parameterType="cn.com.dubbo.bean.EOrderBatchNO">
+		UPDATE e_pstock
+		<set>
+			<if test="status != null and status !=''">
+				status = #{status},
+			</if>
+			<if test="reduceAmount != null and reduceAmount !=''">
+				reduce_amount = #{reduceAmount},
+			</if>
+		</set>
+		WHERE 
+		product_id=#{productId} 
+		AND Instoretime=#{createTime}
+		<if test="batchno != null and batchno !=''">
+			AND batchno=#{batchno}
+		</if>
+	</update>
+		
+	
+</mapper>

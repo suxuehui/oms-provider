@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		                    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		                    http://www.springframework.org/schema/context 
+		                    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		                    http://www.springframework.org/schema/tx 
+		                    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		                    http://www.springframework.org/schema/aop 
+		                    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		                    http://www.springframework.org/schema/task 
+		                    http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+<!-- 分割线  ==========开始  -->
+	<bean id="Health360OrderTimeTask" class="cn.com.dubbo.task.Health360OrderTimeTask"/>
+	
+	<bean id="health360OrderTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="Health360OrderTimeTask" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="health360OrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="health360OrderTaskBean" />
+			<property name="cronExpression">
+				<!-- 每个小时的30分执行一次 -->
+				<!-- <value>0 40 * * * ?</value> -->
+				<!-- 每隔15分钟执行一次 -->
+				<value>0 */30 * * * ?</value>
+			</property>
+	</bean>
+<!-- 分割线  ==========结束  -->
+
+<!-- SplitOrderService==========开始  -->
+	<bean id="SplitOrderTimeTask" class="cn.com.dubbo.task.SplitOrderTimeTask"/>
+	
+	<bean id="splitOrderTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SplitOrderTimeTask" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="splitOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="splitOrderTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+				<!-- 每个小时的55分执行一次 -->
+				<value>0 */30 * * * ?</value>
+			</property>
+	</bean>
+<!-- SplitOrderService ==========结束  -->
+
+
+<!-- 平安京东Service==========开始  -->
+	<bean id="jdAPaOrderTimeTask" class="cn.com.dubbo.task.JdAPaOrderTimeTask"/>
+	
+	<bean id="paOrderTimeTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="jdAPaOrderTimeTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="paOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="paOrderTimeTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔10分执行一次 -->
+				<value>0 */10 * * * ?</value>
+			</property>
+	</bean>
+	
+	<bean id="jdOrderTimeTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="jdAPaOrderTimeTask" />
+		<property name="targetMethod" value="jdExecute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="jdOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jdOrderTimeTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔10分执行一次 -->
+				<value>0 */13 * * * ?</value>
+			</property>
+	</bean>
+	
+<!-- 平安京东Service ==========结束  -->
+
+<!-- 分割线  ==========开始  -->
+	<bean id="outStockUpdateServiceTimeTask" class="cn.com.dubbo.task.OutStockUpdateServiceTimeTask"/>
+	
+	<bean id="outStockUpdateServiceTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="outStockUpdateServiceTimeTask" />
+		<property name="targetMethod" value="testTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="outStockUpdateServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="outStockUpdateServiceTaskBean" />
+			<property name="cronExpression">
+				<!-- 每个小时的50分执行一次 -->
+				<value>0 50 * * * ?</value>
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+			</property>
+	</bean>
+<!-- 分割线  ==========结束  -->
+
+<!-- 分割线  ==========开始  -->
+	<bean id="TmOrderTimeTask" class="cn.com.dubbo.task.TmOrderTimeTask"/>
+	
+	<bean id="tmOrderTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="TmOrderTimeTask" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="tmOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="tmOrderTaskBean" />
+			<property name="cronExpression">
+				<!-- 每个小时的20分执行一次 -->
+				<value>0 20 * * * ?</value>
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+			</property>
+	</bean>
+<!-- 分割线  ==========结束  -->
+
+
+<!-- 平安同步物流分割线  ==========开始  -->
+	<bean id="paEMSTimeTask" class="cn.com.dubbo.task.PaUpdateEMSTimeTask"/>
+	
+	<bean id="paEMSTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="paEMSTimeTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="paEMSTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="paEMSTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔1小时分执行一次 -->
+				<value>0 */10 * * * ?</value>
+			</property>
+	</bean>
+<!-- 平安同步物流分割线  ==========结束  -->
+
+<!-- 平安商城ps分割线  ==========开始  -->
+	<bean id="psOrderTimeTask" class="cn.com.dubbo.task.PSOrderTimeTask"/>
+	
+	<bean id="psOrderTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="psOrderTimeTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="psOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="psOrderTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔10分执行一次 -->
+				<value>0 */10 * * * ?</value>
+			</property>
+	</bean>
+<!--平安商城ps分割线  ==========结束  -->
+
+
+<!-- 合并订单开始  -->
+	<bean id="MergeTaskOrderDelivery" class="cn.com.dubbo.task.TaskMergeOrder"/>
+	
+	<bean id="MergeOrderDeliveryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="MergeTaskOrderDelivery" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="MergeOrderOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="MergeOrderDeliveryBean" />
+			<property name="cronExpression">
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+				<!-- 每个小时的36分执行一次 -->
+				<value>0 */10 * * * ?</value>				
+			</property>
+	</bean>
+<!-- 合并订单结束  -->
+<!-- 更新药易通数据开始  -->
+	<bean id="E_ItemBatch" class="cn.com.dubbo.task.E_ItemBatchTask"/>
+	<bean id="E_ItemBatchBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="E_ItemBatch" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="E_ItemBatchTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="E_ItemBatchBean" />
+			<property name="cronExpression">
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+				<!-- 每个小时的36分执行一次 -->
+				<value>0 */1 * * * ?</value>			
+			</property>
+	</bean>
+<!-- 更新药易通数据结束  -->
+<!-- 检查订单拆分是否正确开始  -->
+	<bean id="CheckSplitOrder" class="cn.com.dubbo.task.CheckSplitOrderTask"/>
+	<bean id="CheckSplitOrderBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="CheckSplitOrder" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="CheckSplitOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="CheckSplitOrderBean" />
+			<property name="cronExpression">
+				<!-- 每隔1分钟执行一次 -->
+				<!-- <value>0 */30 * * * ?</value> -->
+				<!-- 每个小时的36分执行一次 -->
+				<value>0 */30 * * * ?</value>				
+			</property>
+	</bean>
+<!-- 检查订单拆分是否正确结束  -->
+<!-- 平安订单数据校对分割线  ==========开始  -->
+	<bean id="orderCheckTask" class="cn.com.dubbo.task.PAOrderCheckTask"/>
+		
+	<bean id="orderCheckTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="orderCheckTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="orderCheckTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="orderCheckTaskBean" />
+			<property name="cronExpression">
+				<!-- 每隔三个小时执行 -->
+<!-- 				<value>0 0 0/3 * * ?</value> -->
+				<!-- 每天上午10点,下午2点和下午4点  -->
+				<value>0 0 10,11,15,17,18,20,23 * * ?</value>
+			</property>
+	</bean>
+<!-- 平安订单数据校对分割线  ==========结束  -->
+
+<!-- 查询未销商品  分割线=============开始 -->
+	<bean id="checkNoSaleWaresTask" class="cn.com.dubbo.task.CheckNoSaleWaresTask"/>
+	
+	<bean id="checkNoSaleWaresBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="checkNoSaleWaresTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="checkNoSaleWaresTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="checkNoSaleWaresBean" />
+			<property name="cronExpression">
+				<value>0 0 2 * * ?</value>
+			</property>
+	</bean>
+<!-- 查询未销商品  分割线=============结束 -->
+
+
+<!-- 校验所有审核失败的订单 ==========开始  -->
+	<bean id="examineFailTimeTaskBean" class="cn.com.dubbo.task.OrderExamineFailTimeTask"/>
+	
+	<bean id="examineFailTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="examineFailTimeTaskBean" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="examineFailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="examineFailTask" />
+			<property name="cronExpression">
+				<!-- 每隔2小时执行一次 -->
+				<value>0 */1 * * * ?</value>
+			</property>
+	</bean>
+<!-- 校验所有审核失败的订单  ==========结束  -->
+
+<!-- 更新取消的订单 ==========开始  -->
+	<bean id="paOrderCancelTimeTaskBean" class="cn.com.dubbo.task.PaOrderCancelTimeTask"/>
+	
+	<bean id="paOrderCancelTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="paOrderCancelTimeTaskBean" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="paOrderCancelTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="paOrderCancelTask" />
+			<property name="cronExpression">
+				<!-- 每天23点执行一次 -->
+				<value>0 0 23 * * ?</value>
+			</property>
+	</bean>
+<!-- 更新取消的订单  ==========结束  -->
+<!-- 保存发货信息到205 -->
+	<bean id="e_205OrderStatusTimeTask" class="cn.com.dubbo.task.E_205OrderPackageTimeTask"/>
+	<bean id="e_205OrderStatusTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="e_205OrderStatusTimeTask" />
+		<property name="targetMethod" value="executeTimeTask" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="e_205OrderStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="e_205OrderStatusTaskBean" />
+			<property name="cronExpression">
+				<!-- 每个小时的20分执行一次 -->
+				<!-- <value>0 20 * * * ?</value> -->
+				<!-- 每隔1分钟执行一次 -->
+				<value>0 */1 * * * ?</value>
+			</property>
+	</bean>
+<!-- 检查前几天待发货订单 -->
+<bean id="e_CheckOrderInfoTask" class="cn.com.dubbo.task.E_CheckOrderInfoTask"/>
+<bean id="e_CheckOrderInfoTaskBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="targetObject" ref="e_CheckOrderInfoTask" />
+	<property name="targetMethod" value="executeTimeTask" />
+	<property name="concurrent" value="false" />
+</bean>
+<bean id="e_CheckOrderInfoTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<property name="jobDetail" ref="e_CheckOrderInfoTaskBean" />
+		<property name="cronExpression">
+			<!-- 每个小时的20分执行一次 -->
+			<!-- <value>0 20 * * * ?</value> -->
+			<!-- 每隔1分钟执行一次 -->
+			<value>0 */1 * * * ?</value>
+		</property>
+</bean>
+	<!-- 调度工厂 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="checkNoSaleWaresTrigger" /> -->
+			<!-- <ref bean="health360OrderTrigger" /> -->
+ <!--				<ref bean="jdOrderTrigger"/> 
+ 				<ref bean="psOrderTrigger"/> 
+				<ref bean="outStockUpdateServiceTrigger"/>
+				<ref bean="paEMSTrigger"/>
+				<ref bean="tmOrderTrigger" />
+				<ref bean="splitOrderTrigger" /> 
+ 				<ref bean="MergeOrderOrderTrigger"/> 
+				<ref bean="orderCheckTrigger"/>
+  				<ref bean="paOrderTrigger"/>
+  				<ref bean="examineFailTrigger"/>
+ 				<ref bean="paOrderCancelTrigger"/> -->
+				<!-- <ref bean="CheckSplitOrderTrigger" /> -->
+			 	<ref bean="e_205OrderStatusTrigger" />
+				<!-- <ref bean="e_CheckOrderInfoTrigger" />  -->
+				<!-- <ref bean="E_ItemBatchTrigger" />  -->
+				<!-- <ref bean="examineFailTrigger"/> -->
+				<!-- <ref bean="examineFailTrigger"/> -->
+			</list>
+		</property>
+	</bean>
+
+<!-- http://www.meiriyouke.net/?p=131 -->
+<!-- "0 15 10 * * ?"  每天上午10:15触发                            "0 15 * * * ?"	 	每个小时的15分触发一次-->
+
+</beans>

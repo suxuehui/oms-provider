@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.model.Department" >
+    <id column="deptId" property="deptid" jdbcType="INTEGER" />
+    <result column="deptDuty" property="deptduty" jdbcType="VARCHAR" />
+    <result column="deptName" property="deptname" jdbcType="VARCHAR" />
+    <result column="deptNo" property="deptno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    deptId, deptDuty, deptName, deptNo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Department
+    where deptId = #{deptid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Department
+    where deptId = #{deptid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.dubbo.model.Department" >
+    insert into Department (deptId, deptDuty, deptName, 
+      deptNo)
+    values (#{deptid,jdbcType=INTEGER}, #{deptduty,jdbcType=VARCHAR}, #{deptname,jdbcType=VARCHAR}, 
+      #{deptno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.model.Department" >
+    insert into Department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptid != null" >
+        deptId,
+      </if>
+      <if test="deptduty != null" >
+        deptDuty,
+      </if>
+      <if test="deptname != null" >
+        deptName,
+      </if>
+      <if test="deptno != null" >
+        deptNo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptid != null" >
+        #{deptid,jdbcType=INTEGER},
+      </if>
+      <if test="deptduty != null" >
+        #{deptduty,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname != null" >
+        #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="deptno != null" >
+        #{deptno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.model.Department" >
+    update Department
+    <set >
+      <if test="deptduty != null" >
+        deptDuty = #{deptduty,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname != null" >
+        deptName = #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="deptno != null" >
+        deptNo = #{deptno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where deptId = #{deptid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.dubbo.model.Department" >
+    update Department
+    set deptDuty = #{deptduty,jdbcType=VARCHAR},
+      deptName = #{deptname,jdbcType=VARCHAR},
+      deptNo = #{deptno,jdbcType=VARCHAR}
+    where deptId = #{deptid,jdbcType=INTEGER}
+  </update>
+</mapper>

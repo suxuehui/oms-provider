@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.ChannelMapper">
+
+	<!--如果主键是自动生成的，用此方法： 
+	<insert id="saveChannelOrder" parameterType="cn.com.dubbo.model.MultiChannelOrderBatchModel">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="multiChannelOrderBatchId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		ec_multi_channel_order_batch(multi_channel_id , import_user_id , 
+		import_time , order_amount , para_log , is_delete , add_user_id , add_time , edit_user_id , 
+		edit_time)
+		VALUES(#{multiChannelId},#{importUserId},#{importTime},
+		#{orderAmount},#{paraLog},#{isDelete},#{addUserId},#{addTime},#{editUserId},#{editTime});
+	</insert>
+	
+	<insert id="saveBatchChannelOrder" parameterType="cn.com.dubbo.model.MultiChannelOrderBatchModel">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="multiChannelOrderBatchId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		ec_multi_channel_order_batch(multi_channel_id , import_user_id , 
+		import_time , order_amount , para_log , is_delete , add_user_id , add_time , edit_user_id , 
+		edit_time)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		#{item.multiChannelId},#{item.importUserId},#{item.importTime},
+		#{item.orderAmount},#{item.paraLog},#{item.isDelete},#{item.addUserId},
+		#{item.addTime},#{item.editUserId},#{item.editTime}
+		)
+		</foreach>
+	</insert> -->
+	
+	<resultMap id="ChannelOrderResultMap" type="cn.com.dubbo.model.MultiChannelOrderBatchModel" >
+		<id column="multi_channel_order_batch_id" property="multiChannelOrderBatchId" jdbcType="INTEGER" />
+	    <result column="multi_channel_id" property="multiChannelId" jdbcType="INTEGER"/>
+	    <result column="import_user_id" property="importUserId" jdbcType="INTEGER" />
+	    <result column="import_time" property="importTime" jdbcType="VARCHAR" />
+	    <result column="order_amount" property="orderAmount" jdbcType="INTEGER" />
+	    <result column="para_log" property="paraLog" jdbcType="VARCHAR" />
+	    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+	    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+	    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+	    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 如果主键是传进去的，用下面的方法 -->
+	<insert id="saveChannelOrder" parameterType="cn.com.dubbo.model.MultiChannelOrderBatchModel">
+		INSERT INTO
+		ec_multi_channel_order_batch(multi_channel_order_batch_id , multi_channel_id , import_user_id , 
+		import_time , order_amount , para_log , is_delete , add_user_id , add_time , edit_user_id , 
+		edit_time)
+		VALUES(#{multiChannelOrderBatchId},#{multiChannelId},#{importUserId},#{importTime},
+		#{orderAmount},#{paraLog},#{isDelete},#{addUserId},#{addTime},#{editUserId},#{editTime});
+	</insert>
+	
+	<insert id="saveBatchChannelOrder" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO
+		ec_multi_channel_order_batch(multi_channel_order_batch_id , multi_channel_id , import_user_id , 
+		import_time , order_amount , para_log , is_delete , add_user_id , add_time , edit_user_id , 
+		edit_time)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		#{item.multiChannelOrderBatchId},#{item.multiChannelId},#{item.importUserId},#{item.importTime},
+		#{item.orderAmount},#{item.paraLog},#{item.isDelete},#{item.addUserId},
+		#{item.addTime},#{item.editUserId},#{item.editTime}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="findChannelOrderById" resultMap="ChannelOrderResultMap" parameterType="long">
+		SELECT * FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id=#{multiChannelOrderBatchId}
+	</select>
+	
+	<select id="isChannelOrderById" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId}
+	</select>
+	
+	<update id="updateChannelOrder" parameterType="cn.com.dubbo.model.MultiChannelOrderBatchModel">
+		update ec_multi_channel_order_batch
+		<set>
+			<if test="multiChannelId != null and multiChannelId !=''">
+				multi_channel_id = #{multiChannelId},
+			</if>
+			<if test="importUserId != null and importUserId !=''">
+				import_user_id = #{importUserId},
+			</if>
+			<if test="importTime != null and importTime !=''">
+				import_time = #{importTime},
+			</if>
+			<if test="orderAmount != null and orderAmount !=''">
+				order_amount = #{orderAmount},
+			</if>
+			<if test="paraLog != null and paraLog !=''">
+				para_log = #{paraLog},
+			</if>
+			<if test="isDelete != null and isDelete !=''">
+				is_delete = #{isDelete},
+			</if>
+			<if test="addUserId != null and addUserId !=''">
+				add_user_id = #{addUserId},
+			</if>
+			<if test="editUserId != null and editUserId !=''">
+				edit_user_id = #{editUserId},
+			</if>
+			<if test="editTime != null and editTime !=''">
+				edit_time = #{editTime},
+			</if>
+		</set>
+		where multi_channel_order_batch_id = #{multiChannelOrderBatchId}
+	</update>
+	
+	<update id="updateBatchChannelOrder"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update ec_multi_channel_order_batch
+			<set>
+				multi_channel_id = #{multiChannelId},
+				import_user_id = #{importUserId},
+				import_time = #{importTime},
+				order_amount = #{orderAmount},
+				para_log = #{paraLog},
+				is_delete = #{isDelete},
+				add_user_id = #{addUserId},
+				edit_user_id = #{editUserId},
+				edit_time = #{editTime},
+			</set>
+			where multi_channel_order_batch_id = #{multiChannelOrderBatchId}
+       </foreach>
+    </update>
+
+	<select id="isExistChannelOrderBatch" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId} and multi_channel_id=3
+	</select>	
+	
+	<select id="isExistChannelOrderBatch_Tm" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId} and multi_channel_id=1
+	</select>	
+	
+	<select id="isExistChannelOrderBatch_JD" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId} and multi_channel_id=2
+	</select>	
+	
+	<select id="isExistChannelOrderBatch_36" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId} and multi_channel_id=3
+	</select>	
+	
+		<select id="isExistChannelOrderBatch_PA" resultType="java.lang.Integer" parameterType="long">
+		SELECT COUNT(multi_channel_order_batch_id) FROM ec_multi_channel_order_batch WHERE multi_channel_order_batch_id = #{multiChannelOrderBatchId}  and multi_channel_id in (4,5)
+	</select>	
+</mapper>

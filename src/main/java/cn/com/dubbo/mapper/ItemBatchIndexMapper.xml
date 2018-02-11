@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.ItemBatchIndexMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.bean.ItemBatchIndex" >
+    <id column="batch_item_id" property="batchItemId" jdbcType="BIGINT" />
+    <result column="e_ordernumber" property="eOrdernumber" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="billstates" property="billstates" jdbcType="INTEGER" />
+    <result column="multi_channel_id" property="multiChannelId" jdbcType="INTEGER" />
+    <result column="goodsNo" property="goodsno" jdbcType="VARCHAR" />
+    <result column="goods69" property="goods69" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="sum_price" property="sum_price" jdbcType="NUMERIC" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.com.dubbo.bean.ItemBatchIndex" >
+    insert into item_batch_index (e_ordernumber, add_time, billstates, 
+      multi_channel_id, goodsNo, goods69, 
+      amount)
+    values (#{eOrdernumber,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, #{billstates,jdbcType=INTEGER}, 
+      #{multiChannelId,jdbcType=INTEGER}, #{goodsno,jdbcType=VARCHAR}, #{goods69,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.bean.ItemBatchIndex" >
+    insert into item_batch_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eOrdernumber != null" >
+        e_ordernumber,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="billstates != null" >
+        billstates,
+      </if>
+      <if test="multiChannelId != null" >
+        multi_channel_id,
+      </if>
+      <if test="goodsno != null" >
+        goodsNo,
+      </if>
+      <if test="goods69 != null" >
+        goods69,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eOrdernumber != null" >
+        #{eOrdernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="billstates != null" >
+        #{billstates,jdbcType=INTEGER},
+      </if>
+      <if test="multiChannelId != null" >
+        #{multiChannelId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsno != null" >
+        #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="goods69 != null" >
+        #{goods69,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+	
+	<select id="querySaleorderList" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT goodsNo,goods69,SUM(amount) as amount,SUM(sum_price) as sum_price,multi_channel_id FROM item_batch_index WHERE billstates=1 and multi_channel_id=#{multiChannelId} AND e_ordernumber IS NULL GROUP BY goodsNo 
+	</select>
+	
+	<update id="updateBillStatus" parameterType="cn.com.dubbo.bean.ItemBatchIndex">
+		update item_batch_index
+		set billstates = #{billstates},e_ordernumber=#{eOrdernumber}
+		where batch_item_id=#{batchItemId}
+	</update>
+	
+	<update id="batchUpdateBillStatus" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update item_batch_index
+			set billstates = #{item.billstates},e_ordernumber=#{item.eOrdernumber}
+			where goodsNo=#{item.goodsno}
+      		AND multi_channel_id=#{item.multiChannelId}
+			AND e_ordernumber IS NULL
+			AND billstates=1
+		</foreach>
+	</update>
+	
+	<insert id="saveWaresIntoItem" useGeneratedKeys="true" parameterType="cn.com.dubbo.bean.ItemBatchIndex">  
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="batchItemId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+        
+        INSERT INTO item_batch_index(add_time
+        ,billstates,multi_channel_id,goodsNo,goods69,amount
+        ,sum_price
+		) 
+		VALUES
+		(
+		 #{addTime},#{billstates}
+		 ,#{multiChannelId},#{goodsno},#{goods69},
+		 #{amount},#{sum_price}
+		)
+   </insert>
+	
+   <update id="updateByGrounpNo" parameterType="cn.com.dubbo.bean.ItemBatchIndex">
+    	update item_batch_detail set summary='Y',index_id=#{batchItemId} where summary = 'N'
+    	AND goods_no=#{goodsno} and multi_channel_id=#{multiChannelId}
+    </update>
+</mapper>

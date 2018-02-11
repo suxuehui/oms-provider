@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.ExceptionInfoMapper" >
+
+  <insert id="insertExceptionInfo" parameterType="cn.com.dubbo.model.ExceptionInfo" >
+    insert into exception_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="order_no != null" >
+        order_no,
+      </if>    
+      <if test="Logistic_no != null" >
+        Logistic_no,
+      </if>       
+      <if test="Logistic_company_name != null" >
+        Logistic_company_name,
+      </if>
+      <if test="Logistic_company_id != null" >
+        Logistic_company_id,
+      </if> 
+       <if test="Delivery_time != null" >
+        Delivery_time,
+      </if>  
+      <if test="add_time != null" >
+        add_time,
+      </if>              
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="order_no != null" >
+        #{order_no,jdbcType=VARCHAR},
+      </if>    
+      <if test="Logistic_no != null" >
+        #{Logistic_no,jdbcType=VARCHAR},
+      </if>    
+      <if test="Logistic_company_name != null" >
+        #{Logistic_company_name,jdbcType=VARCHAR},
+      </if>
+      <if test="Logistic_company_id != null" >
+        #{Logistic_company_id,jdbcType=INTEGER},
+      </if> 
+        <if test="Delivery_time != null" >
+        #{Delivery_time,jdbcType=VARCHAR},
+      </if>   
+      <if test="add_time != null" >
+        #{add_time,jdbcType=VARCHAR},
+      </if>             
+    </trim>
+  </insert>
+</mapper>

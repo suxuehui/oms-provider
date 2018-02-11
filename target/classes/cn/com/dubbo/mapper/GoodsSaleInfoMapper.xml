@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.GoodsSaleInfoMapper">
+
+	<resultMap id="baseMap" type="cn.com.dubbo.model.GoodsSaleInfoModel" >
+	    <id column="goods_no" property="goodsNo" jdbcType="VARCHAR" />
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR"/>
+	    <result column="cost_price_average" property="costPriceAverage" jdbcType="VARCHAR" />
+	    <result column="cost_price_time" property="costPriceTime" jdbcType="VARCHAR" />
+	    <result column="available_stock" property="availableStock" jdbcType="VARCHAR"/>
+	    <result column="available_stock_time" property="availableStockTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	  
+	  <select id="checkProductInventory" parameterType="java.util.List" resultType="int">
+	  		select count(1) from goods_sale_info where goods_no in (
+				<foreach collection="list" item="item" index="index" open="" close="" separator=",">
+				  #{item.goodsNo}
+				</foreach>
+			);
+	  </select>
+	  
+	  <select id="queryGoodsSaleInfo" parameterType="string" resultMap="baseMap">
+	  		select  * from goods_sale_info where goods_no = #{goodsNo} limit 1
+	  </select>
+	  
+	  <update id="batchUpdateProductInventory"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update  goods_sale_info set  available_stock = #{item.availableStock},available_stock_time =  SYSDATE()
+			where goods_no = #{item.goodsNo}
+       </foreach>
+    </update>
+    
+	  <update id="updateGoodsSaleInfo"  parameterType="java.util.List">
+            update  goods_sale_info set  available_stock = #{availableStock},available_stock_time =  SYSDATE()
+			where goods_no = #{goodsNo}
+    </update>
+    
+    <insert id="insertGoodsSaleInfo"  useGeneratedKeys="true" parameterType="cn.com.dubbo.model.GoodsSaleInfoModel">
+     	insert into goods_sale_info(goods_no,goods_no_69,available_stock,available_stock_time) 
+     	values (#{goodsNo},#{goodsNo_69},#{availableStock},SYSDATE());
+    </insert>
+	  
+	  
+	
+</mapper>

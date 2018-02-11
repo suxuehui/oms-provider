@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.bean.OrderItem" >
+    <id column="order_item_id" property="order_item_id" jdbcType="BIGINT" />
+    <result column="order_no" property="order_no" jdbcType="VARCHAR" />
+    <result column="order_delivery_no" property="order_delivery_no" jdbcType="VARCHAR" />
+    <result column="goods_list_type" property="goods_list_type" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goods_type" jdbcType="VARCHAR" />
+    <result column="goods_no" property="goods_no" jdbcType="VARCHAR" />
+    <result column="goods_no_69" property="goods_no_69" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="cost_price" property="cost_price" jdbcType="DECIMAL" />
+    <result column="old_price" property="old_price" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="price_dis" property="price_dis" jdbcType="DECIMAL" />
+    <result column="goods_sum_fee" property="goods_sum_fee" jdbcType="DECIMAL" />
+    <result column="stock_id" property="stock_id" jdbcType="INTEGER" />
+    <result column="is_delete" property="is_delete" jdbcType="CHAR" />
+    <result column="add_user_id" property="add_user_id" jdbcType="INTEGER" />
+    <result column="add_time" property="add_time" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="edit_user_id" jdbcType="INTEGER" />
+    <result column="edit_time" property="edit_time" jdbcType="VARCHAR" />
+    <result column="group_status" property="group_status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_item_id, order_no, order_delivery_no, goods_list_type, goods_type, goods_no, 
+    goods_no_69, name, standard, unit, cost_price, old_price, price, amount, price_dis, 
+    goods_sum_fee, stock_id, is_delete, add_user_id, add_time, edit_user_id, edit_time, 
+    group_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.dubbo.bean.OrderItem" >
+    insert into order_item (order_item_id, order_no, order_delivery_no, 
+      goods_list_type, goods_type, goods_no, 
+      goods_no_69, name, standard, 
+      unit, cost_price, old_price, 
+      price, amount, price_dis, 
+      goods_sum_fee, stock_id, is_delete, 
+      add_user_id, add_time, edit_user_id, 
+      edit_time, group_status)
+    values (#{orderItemId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{orderDeliveryNo,jdbcType=VARCHAR}, 
+      #{goodsListType,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, 
+      #{goodsNo69,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{costPrice,jdbcType=DECIMAL}, #{oldPrice,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{priceDis,jdbcType=DECIMAL}, 
+      #{goodsSumFee,jdbcType=DECIMAL}, #{stockId,jdbcType=INTEGER}, #{isDelete,jdbcType=CHAR}, 
+      #{addUserId,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, #{editUserId,jdbcType=INTEGER}, 
+      #{editTime,jdbcType=VARCHAR}, #{groupStatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.bean.OrderItem" >
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderDeliveryNo != null" >
+        order_delivery_no,
+      </if>
+      <if test="goodsListType != null" >
+        goods_list_type,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsNo != null" >
+        goods_no,
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="oldPrice != null" >
+        old_price,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="priceDis != null" >
+        price_dis,
+      </if>
+      <if test="goodsSumFee != null" >
+        goods_sum_fee,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="addUserId != null" >
+        add_user_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+      <if test="groupStatus != null" >
+        group_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryNo != null" >
+        #{orderDeliveryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsListType != null" >
+        #{goodsListType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oldPrice != null" >
+        #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceDis != null" >
+        #{priceDis,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSumFee != null" >
+        #{goodsSumFee,jdbcType=DECIMAL},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="addUserId != null" >
+        #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupStatus != null" >
+        #{groupStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.bean.OrderItem" >
+    update order_item
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryNo != null" >
+        order_delivery_no = #{orderDeliveryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsListType != null" >
+        goods_list_type = #{goodsListType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        goods_no = #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oldPrice != null" >
+        old_price = #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceDis != null" >
+        price_dis = #{priceDis,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSumFee != null" >
+        goods_sum_fee = #{goodsSumFee,jdbcType=DECIMAL},
+      </if>
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="addUserId != null" >
+        add_user_id = #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id = #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupStatus != null" >
+        group_status = #{groupStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.dubbo.bean.OrderItem" >
+    update order_item
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      order_delivery_no = #{orderDeliveryNo,jdbcType=VARCHAR},
+      goods_list_type = #{goodsListType,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_no = #{goodsNo,jdbcType=VARCHAR},
+      goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      old_price = #{oldPrice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      price_dis = #{priceDis,jdbcType=DECIMAL},
+      goods_sum_fee = #{goodsSumFee,jdbcType=DECIMAL},
+      stock_id = #{stockId,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      add_user_id = #{addUserId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      edit_user_id = #{editUserId,jdbcType=INTEGER},
+      edit_time = #{editTime,jdbcType=VARCHAR},
+      group_status = #{groupStatus,jdbcType=CHAR}
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  <select id="getOrderItem" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT 
+    <include refid="Base_Column_List" />
+    FROM order_item
+    WHERE order_delivery_no = #{orderDeliveryNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="checkNoSaleWares" resultType="cn.com.dubbo.bean.OrderItem" parameterType="cn.com.dubbo.bean.OrderItem">
+  	SELECT 
+    oit.order_item_id,oit.order_no,
+    oit.goods_no,oit.goods_no_69,oit.cost_price,
+    oit.`name`,oit.amount,oit.stock_status,oin.multi_channel_id
+    FROM order_item  oit
+    LEFT JOIN order_info oin
+    ON oit.order_no = oin.order_no
+    WHERE oit.stock_status = 'N' 
+    AND oit.goods_list_type = 'GENERAL'
+    AND oit.goods_type='OTHER'
+    AND oin.order_status!=7
+    AND oit.goods_no_69 NOT LIKE 'yx-%'
+    AND EXISTS(SELECT 1 FROM order_package opg WHERE opg.delivery_time 
+    BETWEEN '2016-10-17 00:00:00' AND #{add_time,jdbcType=VARCHAR} AND oin.multi_channel_order_no=opg.order_no)
+    AND oin.multi_channel_id = #{mulId}
+    limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <select id="checkNosaleWaresCount" resultType="java.lang.Integer" parameterType="cn.com.dubbo.bean.OrderItem" >
+  	SELECT
+  	COUNT(oit.order_item_id)
+  	FROM order_item oit
+  	LEFT JOIN order_info oin 
+  	ON oit.order_no = oin.order_no
+  	WHERE oit.stock_status = 'N'
+  	AND oit.goods_list_type = 'GENERAL'
+  	AND oit.goods_type='OTHER'
+  	AND oin.order_status!=7
+  	AND oit.goods_no_69 NOT LIKE 'yx-%'
+    AND EXISTS(SELECT 1 FROM order_package opg WHERE opg.delivery_time 
+    BETWEEN '2016-10-17 00:00:00' AND #{add_time,jdbcType=VARCHAR} AND oin.multi_channel_order_no=opg.order_no)
+    AND oin.multi_channel_id = #{mulId}
+  </select>
+  
+  
+   <select id="checkNoSaleReissueWares" resultType="cn.com.dubbo.bean.OrderItem" parameterType="cn.com.dubbo.bean.OrderItem">
+  	SELECT 
+    oit.order_item_id,oit.order_no,
+    oit.goods_no,oit.goods_no_69,oit.cost_price,
+    oit.`name`,oit.amount,oit.stock_status,oin.multi_channel_id
+    FROM order_item  oit
+    LEFT JOIN order_info oin
+    ON oit.order_no = oin.order_no
+    WHERE oit.stock_status = 'N' 
+    AND oit.goods_list_type = 'GENERAL'
+    AND oit.goods_type='OTHER'
+    AND oin.order_status!=7
+    AND oit.goods_no_69 NOT LIKE 'yx-%'
+    AND EXISTS(SELECT 1 FROM order_package opg WHERE opg.delivery_time 
+    BETWEEN '2016-10-17 00:00:00' AND #{add_time,jdbcType=VARCHAR} AND oin.order_no=opg.order_no)
+    AND oin.multi_channel_id = #{mulId}
+    limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <select id="checkNosaleReissueWaresCount" resultType="java.lang.Integer" parameterType="cn.com.dubbo.bean.OrderItem" >
+  	SELECT
+  	COUNT(oit.order_item_id)
+  	FROM order_item oit
+  	LEFT JOIN order_info oin 
+  	ON oit.order_no = oin.order_no
+  	WHERE oit.stock_status = 'N'
+  	AND oit.goods_list_type = 'GENERAL'
+  	AND oit.goods_type='OTHER'
+  	AND oin.order_status!=7
+  	AND oit.goods_no_69 NOT LIKE 'yx-%'
+    AND EXISTS(SELECT 1 FROM order_package opg WHERE opg.delivery_time 
+    BETWEEN '2016-10-17 00:00:00' AND #{add_time,jdbcType=VARCHAR} AND oin.order_no=opg.order_no)
+    AND oin.multi_channel_id = #{mulId}
+  </select>
+  
+   <insert id="saveNoSaleWares" useGeneratedKeys="true" parameterType="java.util.List" >
+   
+        INSERT INTO item_batch_detail(order_item_id,order_no
+        ,goods_no,goods_no_69,cost_price,good_name,amount,stock_status,add_time,summary,multi_channel_id
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		 #{item.order_item_id},#{item.order_no}
+		,#{item.goods_no},#{item.goods_no_69},#{item.cost_price}
+		,#{item.name},#{item.amount},#{item.stock_status},#{item.add_time},#{item.summary},#{item.mulId}
+		)
+        </foreach>
+    </insert>
+  
+  <update id="updateOrderItem_isDelete" parameterType="cn.com.dubbo.bean.OrderItem" >
+    update order_item
+    set is_delete = #{is_delete}
+    where order_no = #{order_no,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateOrderItemByOrderNo" parameterType="cn.com.dubbo.model.OrderItemModel">
+    	update order_item
+		<set>
+			<if test="orderDeliveryNo != null and orderDeliveryNo !=''">
+				order_delivery_no = #{orderDeliveryNo},
+			</if>
+			<if test="goodsListType != null and goodsListType !=''">
+				goods_list_type = #{goodsListType},
+			</if>
+			<if test="goodsType != null and goodsType !=''">
+				goods_type = #{goodsType},
+			</if>
+			
+			<if test="goodsNo != null and goodsNo !=''">
+				goods_no = #{goodsNo},
+			</if>
+			<if test="goodsNo_69 != null and goodsNo_69 !=''">
+				goods_no_69 = #{goodsNo_69},
+			</if>
+			<if test="name != null and name !=''">
+				name = #{name},
+			</if>
+			<if test="standard != null and standard !=''">
+				standard = #{standard},
+			</if>
+			<if test="costPrice != null and costPrice !=''">
+				cost_price = #{costPrice},
+			</if>
+			<if test="oldPrice != null and oldPrice !=''">
+				old_price = #{oldPrice},
+			</if>
+			<if test="price != null and price !=''">
+				price = #{price},
+			</if>
+			<if test="amount != null and amount !=''">
+				amount = #{amount},
+			</if>
+			<if test="priceDis != null and priceDis !=''">
+				price_dis = #{priceDis},
+			</if>
+			<if test="goodsSumFee != null and goodsSumFee !=''">
+				goods_sum_fee = #{goodsSumFee},
+			</if>
+			<if test="stockId != null and stockId !=''">
+				stock_id = #{stockId},
+			</if>
+			<if test="isDelete != null and isDelete !=''">
+				is_delete = #{isDelete},
+			</if>
+			<if test="addUserId != null and addUserId !=''">
+				add_user_id = #{addUserId},
+			</if>
+			<if test="addTime != null and addTime !=''">
+				add_time = #{addTime},
+			</if>
+			<if test="editUserId != null and editUserId !=''">
+				edit_user_id = #{editUserId},
+			</if>
+			<if test="editTime != null and editTime !=''">
+				edit_time = #{editTime},
+			</if>
+			<if test="groupStatus != null and groupStatus !=''">
+				group_status = #{groupStatus},
+			</if>
+			<if test="tmSource != null and tmSource !=''">
+				tm_source = #{tmSource},
+			</if>
+			<if test="supplyPrice != null and supplyPrice !=''">
+				supply_price = #{supplyPrice},
+			</if>
+			<if test="goodsStatus != null and goodsStatus !=''">
+				goods_status = #{goodsStatus},
+			</if>
+		</set>
+		where order_no=#{orderNo}
+    </update>
+    
+    <delete id="deleteExamineFailOrder">
+	    DELETE i from order_item i,order_info o WHERE i.order_no=o.order_no
+		AND o.order_status=3 AND (o.multi_channel_id=4 OR o.multi_channel_id=5) AND i.tm_source LIKE 'TM%'
+    </delete>
+    
+    <update id="updateFailItemsData">
+	    UPDATE
+		order_item i
+		LEFT JOIN order_info o ON i.order_no=o.order_no
+		SET i.group_status=NULL,i.standard=NULL
+		WHERE o.order_status=3 AND (o.multi_channel_id=4 OR o.multi_channel_id=5) 
+    </update>
+  
+</mapper>

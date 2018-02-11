@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper2.E_PstockMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.model2.E_Pstock" >
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="Price1" property="price1" jdbcType="DECIMAL" />
+    <result column="Price2" property="price2" jdbcType="DECIMAL" />
+    <result column="Price3" property="price3" jdbcType="DECIMAL" />
+    <result column="batchno" property="batchno" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="DECIMAL" />
+    <result column="makedate" property="makedate" jdbcType="VARCHAR" />
+    <result column="validdate" property="validdate" jdbcType="VARCHAR" />
+    <result column="Instoretime" property="instoretime" jdbcType="VARCHAR" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="reduce_amount" property="reduceAmount" jdbcType="INTEGER" />
+  </resultMap>
+	
+	<select id="findGoodsTotalNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT epsk.product_id,SUM(epsk.quantity) as quantity
+		FROM e_pstock epsk
+		LEFT JOIN e_products epds ON epsk.product_id=epds.product_id
+		WHERE epds.serial_number=#{goodsNo} GROUP BY epsk.product_id
+	</select>
+	
+	<select id="findNOffStock" parameterType="java.lang.String" resultType="java.lang.String">
+		<![CDATA[
+			SELECT SUM(sbn.quantity) as quantity 
+			FROM e_salesorderbatchno sbn
+			LEFT JOIN e_orderstate eos ON eos.e_ordernumber=sbn.e_ordernumber
+			LEFT JOIN e_products epts ON epts.product_id=sbn.p_id
+			WHERE eos.billstates<>0 AND epts.serial_number=#{goodsNo};
+		]]>
+	</select>
+	
+	<select id="queryStockList" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT epds.product_id,epst.batchno,epst.quantity,
+		epst.Instoretime
+		FROM e_pstock epst
+		LEFT JOIN e_products epds ON epst.product_id=epds.product_id
+		WHERE epds.serial_number=#{goodsNo} ORDER BY epst.validdate;
+	</select>
+	
+	<select id="findBatchNo" resultType="java.lang.String" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT sum(sdbn.quantity) as quantity
+		FROM e_salesorderbatchno sdbn
+		LEFT JOIN e_orderstate os ON sdbn.e_ordernumber=os.e_ordernumber
+		WHERE sdbn.p_id=#{productId} AND os.billstates<>0 
+		]]>
+		<if test="batchno != null and batchno !=''">
+			AND sdbn.batchno=#{batchno} 
+		</if>
+		<if test="batchno == null or batchno ==''">
+			AND sdbn.batchno is null
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <properties resource="com/zxcx/autosource/generatorConfig.properties" /> -->
+	<classPathEntry location="D:\\mysql-connector-java-5.1.32.jar" />
+	<context id="MBG" targetRuntime="MyBatis3" defaultModelType="conditional">
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+			
+			<property name="targetProject" value="oms-provider" />
+		</plugin>
+		<commentGenerator>
+		<!-- suppressAllComments:**阻止**生成注释，默认为false -->
+		<property name="suppressAllComments" value="true" />
+	    	<!-- suppressDate：默认值为false，用于指定在生成的注释是否将包括MBG时间戳 -->
+	    	<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/omsapp?useUnicode=true&amp;characterEncoding=UTF-8" userId="root" password="root">
+		</jdbcConnection>
+		<javaTypeResolver>
+<!-- 		forceBigDecimals，该属性可以控制是否强制DECIMAL和NUMERIC类型的字段转换为Java类型的java.math.BigDecimal,默认值为false，一般不需要配置。 -->
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!--model生成位置  -->
+		<javaModelGenerator targetPackage="cn.com.dubbo.model"
+			targetProject="oms-provider">
+<!-- 			enableSubPackages:如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false。 -->
+			<property name="enableSubPackages" value="true" />
+		</javaModelGenerator>
+		<!--mapper生成位置  -->
+		<sqlMapGenerator targetPackage="cn.com.dubbo.mapper"
+			targetProject="oms-provider">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!--mapper.xml生成位置  -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="cn.com.dubbo.mapper" targetProject="oms-provider">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- <table schema="minghan" tableName="sys_admin" domainObjectName="Admin"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table> -->
+		<!-- 支持生成多个model -->
+		<table tableName="order_info" domainObjectName="order_infoddd"></table>
+		<!-- <table tableName="order_item" domainObjectName="order_itemddd"></table>
+		<table tableName="order_item_batch" domainObjectName="order_item_batchddd"></table> -->
+	</context>
+</generatorConfiguration>

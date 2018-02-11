@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.GoodsChannelPriceMapper">
+
+	<select id="queryGoodsByChannel" resultType="cn.com.dubbo.model.GoodsChannelPrice" parameterType="java.lang.Integer">
+		SELECT gc.goods_no_69 as goodsNo_69,gc.GCP_ID as gcpId
+		FROM goods_channel_price gc 
+		WHERE MULTI_CHANNEL_ID=#{multiChannelId} AND is_delete='N'
+	</select>
+	
+	<select id="findGoodsChannelPrice" resultType="cn.com.dubbo.model.GoodsChannelPrice">
+		SELECT goods_no as goodsNo,goods_no_69 as goodsNo_69,ec_price as ecPrice,cost_price as costPrice,
+		supply_price as supplyPrice,available_stock as availableStock
+		FROM goods_channel_price WHERE multi_channel_id=#{0} AND goods_no_69 = #{1} AND is_delete='N' LIMIT 1;
+	</select>
+	
+	<select id="findGCPByGoodsNo" resultType="cn.com.dubbo.model.GoodsChannelPrice">
+		SELECT goods_no as goodsNo,goods_no_69 as goodsNo_69,ec_price as ecPrice,cost_price as costPrice,
+		supply_price as supplyPrice,available_stock as availableStock
+		FROM goods_channel_price WHERE multi_channel_id=#{0} AND goods_no = #{1} AND is_delete='N' LIMIT 1;
+	</select>
+	
+	
+	<update id="updateGoodsChannelPrice" parameterType="cn.com.dubbo.model.GoodsChannelPrice">
+		update goods_channel_price
+		<set>
+			<if test="goodsId != null and goodsId !=''">
+				goods_id = #{goodsId},
+			</if>
+			<if test="goodsNo != null and goodsNo !=''">
+				GOODS_NO = #{goodsNo},
+			</if>
+			<if test="addTime != null and addTime !=''">
+				ADD_TIME = #{addTime},
+			</if>			
+		</set>
+		where GCP_ID = #{gcpId} AND is_delete='N'
+	</update>
+		
+</mapper>

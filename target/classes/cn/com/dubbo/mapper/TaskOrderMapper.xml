@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.TaskOrderMapper">
+
+	<insert id="saveAllocationTask" parameterType="cn.com.dubbo.model.AllocationTask">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="preTaskNo">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		allocation_task(task_status,task_add_time,add_time
+		) 
+		VALUES(
+		#{taskStatus},#{taskAddTime},#{addTime}
+		);
+	</insert>
+	
+	<insert id="saveTaskOrder" parameterType="cn.com.dubbo.model.AllocationTaskOrder">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="atOrderId">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO
+		allocation_task_order(order_no,pre_task_no,order_status,order_add_time,add_time
+		) 
+		VALUES(
+		#{orderNo},#{preTaskNo},#{orderStatus},#{orderAddTime},#{addTime}
+		);
+	</insert>
+	
+	<insert id="bataSaveTaskOrder" useGeneratedKeys="true" parameterType="java.util.List">  
+        INSERT INTO allocation_task_order(
+        order_no,pre_task_no,order_status,
+        order_add_time,add_time
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		 #{item.orderNo},#{item.preTaskNo},
+		 #{item.orderStatus},#{item.orderAddTime}
+		,#{item.addTime}
+		)
+        </foreach>
+    </insert>
+    
+    <select id="findTaskOrderByNo" resultType="cn.com.dubbo.model.AllocationTaskOrder" parameterType="java.lang.String">
+		SELECT order_no as orderNo,order_status as orderStatus FROM allocation_task_order WHERE order_no=#{orderNo};
+	</select>	
+	
+	
+</mapper>

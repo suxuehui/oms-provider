@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.LogisticMapper">
+   <resultMap id="BaseResultMap" type="cn.com.dubbo.model.LogisticCompany" >
+    <id column="logistic_company_id" property="logisticCompanyId" jdbcType="INTEGER" />
+    <result column="company_no" property="companyNo" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="logistic_type" property="logisticType" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="CHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+    <result column="company_notes" property="companyNotes" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="query_url" property="queryUrl" jdbcType="VARCHAR" />
+    <result column="contact_user" property="contactUser" jdbcType="VARCHAR" />
+    <result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="findThirdCode" resultType ="java.lang.String" parameterType="java.util.Map">
+		SELECT channel_code FROM logistic_channel WHERE channel_type=#{channelType} AND logistic_id=#{logisticId};
+	</select>
+	
+	<insert id="saveLogisticChannel" parameterType="cn.com.dubbo.model.LogisticChannelModel">
+		INSERT INTO 
+		logistic_channel(logistic_id,channel_type,channel_code,company_name
+		) 
+		VALUES(
+		#{logisticId},#{channelType},#{channelCode},#{companyName}
+		);
+	</insert>
+	
+	<select id="findLogisticCompanyId" resultType ="cn.com.dubbo.model.LogisticCompany" parameterType="java.lang.String">
+		SELECT logistic_company_id as logisticCompanyId FROM logistic_company WHERE company_name like CONCAT('%',#{companyName},'%' );
+	</select>	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT  logistic_company_id, company_no, company_name, logistic_type, is_default, priority, 
+    		sort_no, company_notes, website, company_address, query_url, contact_user, contact_tel, 
+    		is_delete, add_user_id, add_time, edit_user_id, edit_time
+    FROM    logistic_company
+    WHERE   logistic_company_id = #{logisticCompanyId,jdbcType=INTEGER}
+  </select>
+</mapper>

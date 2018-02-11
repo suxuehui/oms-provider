@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.OrderPackageMapper">
+
+	<resultMap id="BaseResultMap" type="cn.com.dubbo.model.OrderPackage" >
+	    <id column="package_id" property="package_id" jdbcType="INTEGER" />
+	    <result column="stock_id" property="stock_id" jdbcType="INTEGER"/>
+	    <result column="order_no" property="order_no" jdbcType="VARCHAR"/>
+	    <result column="package_no" property="package_no" jdbcType="VARCHAR" />
+	    <result column="logistic_company_id" property="logistic_company_id" jdbcType="INTEGER" />
+	    <result column="logistic_company_name" property="logistic_company_name" jdbcType="VARCHAR" />
+	    <result column="logistic_company_no" property="logistic_company_no" jdbcType="VARCHAR" />
+	    <result column="logistic_no" property="logistic_no" jdbcType="VARCHAR" />
+	    
+	    <result column="multi_channel_id" property="multi_channel_id" jdbcType="INTEGER" />
+	    <result column="delivery_status" property="delivery_status" jdbcType="VARCHAR" />
+	    <result column="add_user_id" property="add_user_id" jdbcType="INTEGER" />
+	    <result column="add_time" property="add_time" jdbcType="VARCHAR" />
+	    <result column="edit_user_id" property="edit_user_id" jdbcType="INTEGER" />	    
+	    <result column="edit_time" property="edit_time" jdbcType="VARCHAR" />	    
+	    <result column="delivery_time" property="delivery_time" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="TmpHhrResultMap" type="cn.com.dubbo.bean.TmpHhr" >
+	    <result column="order_no" property="order_no" jdbcType="VARCHAR"/>
+	    <result column="logistic_no" property="logistic_no" jdbcType="VARCHAR" />
+	    <result column="tid" property="tid" jdbcType="VARCHAR" />
+	    <result column="logistic_company_name" property="logistic_company_name" jdbcType="VARCHAR" />
+	    <result column="delivery_time" property="delivery_time" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+<!-- 	<insert id="saveOrderDelivery" parameterType="cn.com.dubbo.model.OrderDelivery">
+		INSERT INTO 
+		order_delivery(order_delivery_no,package_no,order_no,stock_id,logistic_company_id,logistic_company_name,
+		logistic_code,state
+		) 
+		VALUES(
+		#{order_delivery_no},#{package_no},#{order_no},#{stock_id},#{logistic_company_id},#{logistic_company_name},
+		#{logistic_code},#{state}
+		);
+	</insert> -->
+	
+	<select id="getOrderPackage" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT order_no, logistic_no FROM order_package WHERE delivery_status=#{delivery_status}
+	</select>	
+	
+	<select id="getOrderPackage_36" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT order_no, logistic_no FROM order_package WHERE delivery_status=#{delivery_status} AND multi_channel_id=3  
+	</select>
+	
+	<select id="findPackageByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM order_package WHERE order_no=#{orderNo}
+	</select>
+		
+	<select id="queryPackageByChannelId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT order_no,package_id,stock_id,package_no,logistic_company_id,logistic_company_name,logistic_company_no,logistic_no,delivery_status,delivery_time
+		 FROM order_package 
+		WHERE multi_channel_id=#{mutilChannelId} AND delivery_status='N';
+	</select>
+	<select id="queryPackageByMap" resultMap="BaseResultMap" parameterType="map">
+		SELECT * FROM order_package  
+		<where>
+			<if test="multi_channel_id != '' and multi_channel_id !=null" >
+			AND multi_channel_id=#{multi_channel_id}
+			</if>
+			<if test="startTime != null and endTime !=null" >
+			AND add_time &gt; #{startTime} AND add_time &lt; #{endTime}
+			</if>
+			AND delivery_status='Y' 
+			AND logistic_company_name is not null
+			AND logistic_no is not null
+	  	</where>
+	  	ORDER BY add_time DESC LIMIT #{currentPage},#{pageSize} 
+	</select>
+	<update id="updateOrderPackage" parameterType="java.lang.String">
+		update order_package set delivery_status = 'Y',sync_time= now() where order_no = #{order_no}
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.model.OrderPackage" >
+	    update order_package
+	    <set >
+	      <if test="stock_id != null" >
+	        stock_id = #{stock_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="order_no != null" >
+	        order_no = #{order_no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="package_no != null" >
+	        package_no = #{package_no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="logistic_company_id != null" >
+	        logistic_company_id = #{logistic_company_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="logistic_company_name != null" >
+	        logistic_company_name = #{logistic_company_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="logistic_company_no != null" >
+	        logistic_company_no = #{logistic_company_no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="logistic_no != null" >
+	        logistic_no = #{logistic_no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="multi_channel_id != null" >
+	        multi_channel_id = #{multi_channel_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="delivery_status != null" >
+	        delivery_status = #{delivery_status,jdbcType=CHAR},
+	      </if>
+	      <if test="add_user_id != null" >
+	        add_user_id = #{add_user_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="add_time != null" >
+	        add_time = #{add_time,jdbcType=VARCHAR},
+	      </if>
+	      <if test="edit_user_id != null" >
+	        edit_user_id = #{edit_user_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="edit_time != null" >
+	        edit_time = #{edit_time,jdbcType=VARCHAR},
+	      </if>
+	      <if test="deal_status != null" >
+	        deal_status = #{deal_status,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where package_id = #{packageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPackageNo" parameterType="cn.com.dubbo.model.OrderPackage" >
+	    update order_package
+	    <set >
+	      <if test="stock_id != null" >
+	        stock_id = #{stock_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="logistic_company_id != null" >
+	        logistic_company_id = #{logistic_company_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="logistic_company_name != null" >
+	        logistic_company_name = #{logistic_company_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="logistic_company_no != null" >
+	        logistic_company_no = #{logistic_company_no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="logistic_no != null" >
+	        logistic_no = #{logistic_no,jdbcType=VARCHAR},
+	      </if>
+	      
+	    </set>
+	    where package_no = #{package_no,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryTmpHhr" resultMap="TmpHhrResultMap">
+  	select h.tid,h.order_no,p.logistic_no,p.logistic_company_name,p.delivery_time  
+  	from temp_hhr h
+  	LEFT JOIN order_package p on p.order_no = h.order_no
+  </select>
+</mapper>

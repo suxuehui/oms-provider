@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		                    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		                    http://www.springframework.org/schema/context 
+		                    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		                    http://www.springframework.org/schema/tx 
+		                    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		                    http://www.springframework.org/schema/aop 
+		                    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		                    http://www.springframework.org/schema/mvc
+   							http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd" >
+   							
+	<!-- 数据源配置 -->
+	<context:property-placeholder location="classpath*:config/database.properties" />
+	
+	<!--  com.mchange.v2.c3p0.ComboPooledDataSource -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+    </bean>
+	
+	<!-- 多数据源配置    add -->
+	<bean id="DataSource2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+       <property name="driverClassName" value="${jdbc.driver02}" />
+		<property name="url" value="${jdbc.url02}"/>
+		<property name="username" value="${jdbc.username02}" />
+		<property name="password" value="${jdbc.password02}" />
+    </bean>
+	
+	 <bean id="multipleDataSource" class="cn.com.dubbo.util.MultipleDataSource">
+        <property name="defaultTargetDataSource" ref="dataSource"/>
+        <property name="targetDataSources">
+            <map>
+                <entry key="DataSource2" value-ref="DataSource2"/>
+                <entry key="dataSource" value-ref="dataSource"/>
+            </map>
+        </property>
+    </bean>
+    
+	<!-- 4、创建事务管理器     事务管理多数据源修改   ref="dataSource"   -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="multipleDataSource"></property>
+	</bean>
+	
+	<!-- 创建SqlSessionFactory工厂，这是spring整合mybatis的核心 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <!-- configLocation：用于指定Mybatis的配置文件位置 -->  
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />  
+    </bean>
+
+    <bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="DataSource2" />  
+        <!-- configLocation：用于指定Mybatis的配置文件位置 -->  
+        <property name="configLocation" value="classpath:mybatis/mybatis-config2.xml" />  
+    </bean>     		
+<!-- 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		多数据源改造修改***** ref="datasource"
+		<property name="dataSource" ref="multipleDataSource"></property>
+		
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
+		<property name="typeAliasesPackage" value="cn.com.dubbo.model"></property>
+		<property name="mapperLocations" value="classpath*:cn/com/dubbo/mapper/*Mapper.xml"></property>
+	</bean> -->
+	
+	<!--  mybatis.spring自动映射 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="  
+          cn.com.dubbo.mapper
+        " />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />  
+    </bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="  
+          cn.com.dubbo.mapper2
+        " />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory2" />  
+    </bean>       	
+<!--  	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.com.dubbo.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean> -->
+    
+	<!-- 5、通过注解的方式加载事务 -->
+ 	<tx:annotation-driven transaction-manager="txManager"/>
+
+
+ 
+</beans>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.ItemBatchDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.bean.ItemBatchDetail" >
+    <id column="order_data_id" property="orderDataId" jdbcType="INTEGER" />
+    <result column="order_item_id" property="orderItemId" jdbcType="BIGINT" />
+    <result column="e_ordernumber" property="eOrdernumber" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="goods_no_69" property="goodsNo69" jdbcType="VARCHAR" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="good_name" property="goodName" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="stock_status" property="stockStatus" jdbcType="CHAR" />
+    <result column="goods_batch" property="goodsBatch" jdbcType="VARCHAR" />
+    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+    <result column="sum_price" property="sum_price" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_data_id, order_item_id, e_ordernumber, order_no, goods_no, goods_no_69, cost_price, 
+    good_name, amount, stock_status, goods_batch, add_user_id, add_time, edit_user_id, 
+    edit_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from item_batch_detail
+    where order_data_id = #{orderDataId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from item_batch_detail
+    where order_data_id = #{orderDataId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.dubbo.bean.ItemBatchDetail" >
+    insert into item_batch_detail (order_data_id, order_item_id, e_ordernumber, 
+      order_no, goods_no, goods_no_69, 
+      cost_price, good_name, amount, 
+      stock_status, goods_batch, add_user_id, 
+      add_time, edit_user_id, edit_time,multi_channel_id
+      )
+    values (#{orderDataId,jdbcType=INTEGER}, #{orderItemId,jdbcType=BIGINT}, #{eOrdernumber,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, #{goodsNo69,jdbcType=VARCHAR}, 
+      #{costPrice,jdbcType=DECIMAL}, #{goodName,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{stockStatus,jdbcType=CHAR}, #{goodsBatch,jdbcType=VARCHAR}, #{addUserId,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=VARCHAR}, #{editUserId,jdbcType=INTEGER}, #{editTime,jdbcType=VARCHAR},#{multi_channel_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.dubbo.bean.ItemBatchDetail" >
+    insert into item_batch_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderDataId != null" >
+        order_data_id,
+      </if>
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="eOrdernumber != null" >
+        e_ordernumber,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="goodsNo != null" >
+        goods_no,
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="goodName != null" >
+        good_name,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="stockStatus != null" >
+        stock_status,
+      </if>
+      <if test="goodsBatch != null" >
+        goods_batch,
+      </if>
+      <if test="addUserId != null" >
+        add_user_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id,
+      </if>
+      <if test="editTime != null" >
+        edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderDataId != null" >
+        #{orderDataId,jdbcType=INTEGER},
+      </if>
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="eOrdernumber != null" >
+        #{eOrdernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="stockStatus != null" >
+        #{stockStatus,jdbcType=CHAR},
+      </if>
+      <if test="goodsBatch != null" >
+        #{goodsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="addUserId != null" >
+        #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.dubbo.bean.ItemBatchDetail" >
+    update item_batch_detail
+    <set >
+      <if test="orderItemId != null" >
+        order_item_id = #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="eOrdernumber != null" >
+        e_ordernumber = #{eOrdernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null" >
+        goods_no = #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo69 != null" >
+        goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodName != null" >
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="stockStatus != null" >
+        stock_status = #{stockStatus,jdbcType=CHAR},
+      </if>
+      <if test="goodsBatch != null" >
+        goods_batch = #{goodsBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="addUserId != null" >
+        add_user_id = #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="editUserId != null" >
+        edit_user_id = #{editUserId,jdbcType=INTEGER},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_data_id = #{orderDataId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.dubbo.bean.ItemBatchDetail" >
+    update item_batch_detail
+    set order_item_id = #{orderItemId,jdbcType=BIGINT},
+      e_ordernumber = #{eOrdernumber,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      goods_no = #{goodsNo,jdbcType=VARCHAR},
+      goods_no_69 = #{goodsNo69,jdbcType=VARCHAR},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      stock_status = #{stockStatus,jdbcType=CHAR},
+      goods_batch = #{goodsBatch,jdbcType=VARCHAR},
+      add_user_id = #{addUserId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      edit_user_id = #{editUserId,jdbcType=INTEGER},
+      edit_time = #{editTime,jdbcType=VARCHAR}
+    where order_data_id = #{orderDataId,jdbcType=INTEGER}
+  </update>
+  <select id="queryGoodsNo" resultMap="BaseResultMap" parameterType="cn.com.dubbo.bean.ItemBatchDetail">
+  	SELECT goods_no,goods_no_69,SUM(amount) AS amount,SUM(cost_price) AS sum_price from item_batch_detail  where  summary ="N" and multi_channel_id=#{multi_channel_id} GROUP BY goods_no
+  </select>
+  
+  <insert id="saveWaresIntoItem" useGeneratedKeys="true" parameterType="java.util.List">  
+        INSERT INTO item_batch_index(add_time
+        ,billstates,multi_channel_id,goodsNo,goods69,amount
+        ,sum_price
+		) 
+		VALUES
+		(
+		 #{addTime},#{billstates}
+		 ,#{multi_channel_id},#{goodsNo},#{goodsNo69},
+		 #{amount},#{sum_price}
+		)
+   </insert>
+   
+   <select id="queryItemId" resultType="java.lang.Integer" parameterType="cn.com.dubbo.bean.ItemBatchDetail">
+   	 	select count(order_item_id) AS cc from item_batch_detail where order_item_id=#{orderItemId}
+   </select>
+   
+   <select id="saveWrongNoSales" resultType="java.lang.Integer" parameterType="cn.com.dubbo.bean.ItemBatchDetail">
+   		INSERT	INTO item_batch_detail (order_item_id,order_no
+   		,goods_no,goods_no_69,cost_price,good_name,amount,stock_status,add_time,summary,multi_channel_id)
+   		VALUES(#{orderItemId},#{orderNo},#{goodsNo},#{goodsNo69}
+   		,#{costPrice},#{goodName},#{amount},#{stockStatus},#{addTime},#{summary},#{multi_channel_id}
+   		);
+   </select>
+	
+   <select id="selectRepeatWare" parameterType="java.util.List" resultType="java.lang.String">
+   		select order_item_id  from item_batch_detail where order_item_id in 
+   		(
+   		<foreach collection="list" index="index" item="item"  separator="," >  
+        	#{item.orderItemId}  
+    	</foreach> 
+    	);
+   </select>
+   
+   <insert id="saveNoSaleWares" useGeneratedKeys="true" parameterType="java.util.List" >
+   
+        INSERT INTO item_batch_detail(order_item_id,order_no
+        ,goods_no,goods_no_69,cost_price,good_name,amount,stock_status,summary,multi_channel_id,add_time
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+		 #{item.orderItemId},#{item.orderNo}
+		,#{item.goodsNo},#{item.goodsNo69},#{item.costPrice}
+		,#{item.goodName},#{item.amount},#{item.stockStatus},#{item.summary},#{item.multi_channel_id},#{item.addTime}
+		)
+        </foreach>
+    </insert>
+    
+    <update id="updateByGrounpNo" parameterType="java.util.List">
+    	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    	update item_batch_detail set summary="Y" where summary = "N"
+	    	AND goods_no=#{item.goodsNo}
+    	</foreach>
+    </update>
+</mapper>

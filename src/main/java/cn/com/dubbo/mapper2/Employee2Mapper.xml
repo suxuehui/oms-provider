@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper2.Employee2Mapper" >
+
+  <resultMap id="Base2ResultMap" type="cn.com.dubbo.model2.Employee" >
+    <id column="empId" property="empid" jdbcType="INTEGER" />
+    <result column="empAddress" property="empaddress" jdbcType="VARCHAR" />
+    <result column="empAge" property="empage" jdbcType="VARCHAR" />
+    <result column="empMail" property="empmail" jdbcType="VARCHAR" />
+    <result column="empName" property="empname" jdbcType="VARCHAR" />
+    <result column="empPhone" property="empphone" jdbcType="VARCHAR" />
+    <result column="empSex" property="empsex" jdbcType="VARCHAR" />
+    <result column="empPass" property="emppass" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="login2" resultMap="Base2ResultMap" parameterType="cn.com.dubbo.model2.Employee">
+  	select empId, empAddress, empAge, empMail, empName, empPhone, empSex, empPass
+    from employee
+    where empName = #{empname,jdbcType=VARCHAR} AND empPass= #{emppass,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <insert id="insertSelective2" parameterType="cn.com.dubbo.model2.Employee" >
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        empId,
+      </if>
+      <if test="empaddress != null" >
+        empAddress,
+      </if>
+      <if test="empage != null" >
+        empAge,
+      </if>
+      <if test="empmail != null" >
+        empMail,
+      </if>
+      <if test="empname != null" >
+        empName,
+      </if>
+      <if test="empphone != null" >
+        empPhone,
+      </if>
+      <if test="empsex != null" >
+        empSex,
+      </if>
+      <if test="emppass != null" >
+        empPass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="empaddress != null" >
+        #{empaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="empage != null" >
+        #{empage,jdbcType=VARCHAR},
+      </if>
+      <if test="empmail != null" >
+        #{empmail,jdbcType=VARCHAR},
+      </if>
+      <if test="empname != null" >
+        #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="empphone != null" >
+        #{empphone,jdbcType=VARCHAR},
+      </if>
+      <if test="empsex != null" >
+        #{empsex,jdbcType=VARCHAR},
+      </if>
+      <if test="emppass != null" >
+        #{emppass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>  
+  
+  <insert id="insertSelective777" parameterType="cn.com.dubbo.model2.Employee" >
+		INSERT INTO
+		employee22(empid)
+		VALUES(#{empid});    
+  </insert>  
+  
+  <insert id="insertSelective888" parameterType="cn.com.dubbo.model2.Employee" >
+    insert into 
+		employee33(empid)
+		VALUES(#{empid});    
+  </insert>      
+</mapper>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.GoodsMapper">
+
+	<resultMap id="baseMap" type="cn.com.dubbo.model.GoodsModel" >
+	    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    <result column="goods_class_id" property="goodsClassId" jdbcType="VARCHAR" />
+	    <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+	    <result column="name" property="name" jdbcType="VARCHAR"/>
+	    <result column="standard" property="standard" jdbcType="VARCHAR"/>
+	    <result column="med_type" property="medType" jdbcType="VARCHAR"/>
+	    <result column="permitcode" property="permitcode" jdbcType="VARCHAR"/>
+	    <result column="add_user" property="addUser" jdbcType="VARCHAR"/>
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR"/>
+	    <result column="otc_type" property="otcType" jdbcType="VARCHAR"/>
+	    <result column="otc_flag" property="otcFlag" jdbcType="VARCHAR"/>
+	    <result column="producer" property="producer" jdbcType="VARCHAR"/>
+	    <result column="goods_status" property="goodsStatus" jdbcType="VARCHAR"/>
+	    <result column="cost_price_average" property="costPriceAverage" jdbcType="NUMERIC"/>
+	    <result column="available_stock" property="availableStock" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap id="goodSaleMap" type="cn.com.dubbo.model.GoodsSaleInfoModel" >
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    <result column="cost_price_average" property="costPriceAverage" jdbcType="NUMERIC"/>
+	    <result column="cost_price_time" property="costPriceTime" jdbcType="VARCHAR"/>
+	    <result column="available_stock" property="availableStock" jdbcType="INTEGER"/>
+	    <result column="available_stock_time" property="availableStockTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="goodGroupItemMap" type="cn.com.dubbo.model.GoodsGroupItemModel" >
+		<result column="group_item_id" property="groupItemId" jdbcType="INTEGER"/>
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    <result column="sub_goods_no" property="subGoodsNo" jdbcType="VARCHAR"/>
+	    <result column="sub_goods_no_69" property="subGoodsNo_69" jdbcType="VARCHAR" />
+	    <result column="amount" property="amount" jdbcType="INTEGER"/>
+	    <result column="proportion" property="proportion" jdbcType="NUMERIC"/>
+	    <result column="validate_date" property="validateDate" jdbcType="VARCHAR"/>
+	    <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+	    <result column="add_user_id" property="addUserId" jdbcType="INTEGER"/>
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR"/>
+	    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER"/>
+	    <result column="edit_time" property="editTime" jdbcType="VARCHAR"/>
+	    <result column="otc_flag" property="otcFlag" jdbcType="VARCHAR"/>
+	    <result column="name" property="name" jdbcType="VARCHAR"/>
+	    <result column="standard" property="standard" jdbcType="VARCHAR"/>
+	    <result column="cost_price_average" property="costPriceAverage" jdbcType="NUMERIC"/>
+	    <result column="supply_price" property="supplyPrice" jdbcType="NUMERIC"/>
+	    <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<resultMap id="goodStockMap" type="cn.com.dubbo.model.GoodsStockInfo" >
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    <result column="stock_inventory" property="stockInventory" jdbcType="INTEGER"/>
+	    <result column="total_stock" property="totalStock" jdbcType="INTEGER"/>
+	    <result column="usable_stock" property="usableStock" jdbcType="INTEGER"/>
+	    <result column="sold_total_num" property="soldTotalNum" jdbcType="INTEGER"/>
+	    <result column="deliver_num" property="deliverNum" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="getGoodByGoodNo69" resultMap="baseMap" parameterType="java.lang.String">
+		SELECT g.*,gs.cost_price_average,gs.available_stock FROM goods g 
+		LEFT JOIN goods_sale_info gs on g.GOODS_NO=gs.goods_no 
+		WHERE g.GOODS_NO_69=#{goodNo69} and g.goods_status='Y' ORDER BY gs.goods_no LIMIT 1;
+	</select>
+	<select id="getGoodByGoodNo" resultMap="baseMap" parameterType="java.lang.String">
+		SELECT g.*,gs.cost_price_average,gs.available_stock FROM goods g
+		LEFT JOIN goods_sale_info gs on g.GOODS_NO=gs.goods_no 
+		WHERE g.GOODS_NO = #{goodNo} and g.goods_status='Y' ORDER BY gs.goods_no LIMIT 1
+	</select>
+	<select id="findGroupNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT count(*) FROM goods_group_item WHERE GOODS_NO_69=#{goodNo69} AND is_delete='N';
+	</select>
+
+	<select id="getGoodListByGoodNo69" resultType="cn.com.dubbo.model.GoodsModel" parameterType="java.lang.String">
+		SELECT gs.GOODS_ID as goodsId,gs.GOODS_NO as goodsNo, gs.OTC_FLAG as otcFlag FROM goods gs 
+		WHERE gs.GOODS_NO_69=#{goodNo69} and gs.GOODS_STATUS='Y';
+	</select>
+		
+	<select id="queryGroupItemByNo69" resultMap="goodGroupItemMap" parameterType="java.lang.String">
+		SELECT gi.group_item_id,gi.goods_no,gi.goods_no_69,gi.sub_goods_no,gi.sub_goods_no_69,gi.amount,
+		g.OTC_FLAG,g.`NAME`,g.STANDARD,gs.cost_price_average,gi.supply_price,gi.goods_name
+		FROM goods_group_item gi 
+		LEFT JOIN goods g ON gi.sub_goods_no=g.GOODS_NO 
+		LEFT JOIN goods_sale_info gs ON gi.sub_goods_no=gs.GOODS_NO
+		WHERE gi.goods_no_69=#{goodNo69} AND gi.is_delete='N' GROUP BY gi.sub_goods_no_69 ORDER BY gs.cost_price_average;
+	</select>
+	
+	<select id="queryGroupItemByGoodsNo" resultMap="goodGroupItemMap" parameterType="java.lang.String">
+		SELECT gi.group_item_id,gi.goods_no,gi.goods_no_69,gi.sub_goods_no,gi.sub_goods_no_69,gi.amount,
+		g.OTC_FLAG,g.`NAME`,g.STANDARD,gs.cost_price_average,gi.supply_price,gi.goods_name
+		FROM goods_group_item gi 
+		LEFT JOIN goods g ON gi.sub_goods_no=g.GOODS_NO 
+		LEFT JOIN goods_sale_info gs ON gi.sub_goods_no=gs.GOODS_NO
+		WHERE gi.goods_no=#{goodNo69} AND gi.is_delete='N' GROUP BY gi.sub_goods_no_69 ORDER BY gs.cost_price_average;
+	</select>
+	
+	<select id="findSaleInfoByNo69" resultMap="goodSaleMap" parameterType="java.lang.String">
+		SELECT * from goods_sale_info WHERE goods_no_69=#{goodNo69} AND cost_price_average>=0 ORDER BY goods_no LIMIT 1;
+	</select>
+	
+	<update id="updateGoodsSaleInfo" parameterType="cn.com.dubbo.model.GoodsSaleInfoModel">
+		update goods_sale_info
+		<set>
+			<if test="goodsNo_69 != null and goodsNo_69 !=''">
+				goods_no_69 = #{goodsNo_69},
+			</if>
+			<if test="costPriceAverage != null and costPriceAverage !=''">
+				cost_price_average = #{costPriceAverage},
+			</if>
+			<if test="costPriceTime != null and costPriceTime !=''">
+				cost_price_time = #{costPriceTime},
+			</if>
+			<if test="availableStock != null and availableStock !=''">
+				available_stock = #{availableStock},
+			</if>
+			<if test="availableStockTime != null and availableStockTime !=''">
+				available_stock_time = #{availableStockTime},
+			</if>
+		</set>
+		where goods_no = #{goodsNo}
+	</update>
+	
+	
+	<update id="updateBatchGoodsSaleInfo" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update goods_sale_info
+			<set>
+				<if test="item.goodsNo_69 != null and item.goodsNo_69 !=''">
+					goods_no_69 = #{item.goodsNo_69},
+				</if>
+				<if test="item.costPriceAverage != null and item.costPriceAverage !=''">
+					cost_price_average = #{item.costPriceAverage},
+				</if>
+				<if test="item.costPriceTime != null and item.costPriceTime !=''">
+					cost_price_time = #{item.costPriceTime},
+				</if>
+				<if test="item.availableStock != null and item.availableStock !=''">
+					available_stock = #{item.availableStock},
+				</if>
+				<if test="item.availableStockTime != null and item.availableStockTime !=''">
+					available_stock_time = #{item.availableStockTime},
+				</if>
+			</set>
+			where goods_no = #{goodsNo}
+		</foreach>
+	</update>
+
+	<select id="queryGoodsByChannel" resultType="cn.com.dubbo.model.GoodsChannelPrice" parameterType="java.lang.Integer">
+		SELECT gc.goods_id as goodsId,gc.goods_no as goodsNo,gc.goods_no_69 as goodsNo_69,gs.available_stock as availableStock
+		FROM goods_channel_price gc 
+		LEFT JOIN goods_sale_info gs ON gc.GOODS_NO=gs.goods_no
+		WHERE MULTI_CHANNEL_ID=#{multiChannelId} AND is_delete='N' AND gs.goods_no_69 IS NOT NULL
+	</select>
+	
+	<select id="querySaleInfo" resultMap="goodSaleMap" parameterType="java.lang.Integer">
+		SELECT * FROM goods_sale_info;
+	</select>
+	
+	<!-- 新增库存备用方案，新增方法 -->
+	<select id="findGoodsStock" resultMap="goodStockMap" parameterType="java.lang.String">
+		select * from goods_stock_info where goods_no=#{goodsNo};
+	</select>
+	
+	<update id="updateGoodsStock" parameterType="cn.com.dubbo.model.GoodsStockInfo">
+		UPDATE goods_stock_info
+		<set>
+			<if test="usableStock != null and usableStock !=''">
+				usable_stock = usable_stock + #{usableStock},
+			</if>
+			<if test="soldTotalNum != null and soldTotalNum !=''">
+				sold_total_num = sold_total_num + #{soldTotalNum},
+			</if>
+			<if test="deliverNum != null and deliverNum !=''">
+				deliver_num = deliver_num + #{deliverNum},
+			</if>
+			last_time=now()
+		</set>
+		WHERE goods_no=#{goodsNo};
+	</update>
+	
+	<select id="findGoodStockNumber" resultType="string" parameterType="string">
+		 SELECT  gs.available_stock 
+		 FROM   goods_sale_info gs  
+		 WHERE  gs.goods_no = #{goodNo} limit 1
+	</select>
+	
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.GoodsStockMapper">
+
+	<resultMap id="GoodsStockResultMap" type="cn.com.dubbo.model.GoodsStock" >
+	    <id column="goods_stock_id" property="goods_stock_id" jdbcType="VARCHAR" />
+	    <result column="stock_id" property="stock_id" jdbcType="INTEGER"/>
+	    <result column="goods_id" property="goods_id" jdbcType="INTEGER"/>
+	    <result column="batch_number" property="batch_number" jdbcType="VARCHAR" />
+	    <result column="batch_stock" property="batch_stock" jdbcType="VARCHAR" />
+	    <result column="occupancy_stock" property="occupancy_stock" jdbcType="VARCHAR" />
+	    <result column="available_stock" property="available_stock" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="GoodsModelMap" type="cn.com.dubbo.model.GoodsModel" >
+	    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+	    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+	    <result column="goods_no_69" property="goodsNo_69" jdbcType="VARCHAR" />
+	    
+	    <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+	    <result column="name" property="name" jdbcType="VARCHAR"/>
+	    <result column="standard" property="standard" jdbcType="VARCHAR"/>
+	    <result column="med_type" property="medType" jdbcType="VARCHAR"/>
+	    <result column="permitcode" property="permitcode" jdbcType="VARCHAR"/>
+	    <result column="add_user" property="addUser" jdbcType="VARCHAR"/>
+	    <result column="add_time" property="addTime" jdbcType="VARCHAR"/>
+	    <result column="otc_type" property="otcType" jdbcType="VARCHAR"/>
+	    <result column="producer" property="producer" jdbcType="VARCHAR"/>
+	    <result column="goods_status" property="goodsStatus" jdbcType="VARCHAR"/>
+	    <result column="available_stock" property="availableStock" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="getGoodsIdByGoodsNo" resultType="cn.com.dubbo.model.GoodsModel" parameterType="java.lang.String">
+		SELECT goods_id FROM goods WHERE goods_no=#{goodsNo}		
+	</select>
+	
+	<select id="getStockIdByGoodsId" resultType="cn.com.dubbo.model.GoodsStock" parameterType="java.lang.Integer">
+		SELECT stock_id FROM  goods_stock  WHERE goods_id=#{goodsId}
+	</select>
+	
+</mapper>

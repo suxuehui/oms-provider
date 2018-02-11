@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.OrderDeliveryMapper">
+
+	<resultMap id="BaseResultMap" type="cn.com.dubbo.model.OrderDelivery" >
+	    <id column="order_delivery_no" property="order_delivery_no" jdbcType="VARCHAR" />
+	    <result column="package_no" property="package_no" jdbcType="VARCHAR"/>
+	    <result column="order_no" property="order_no" jdbcType="VARCHAR"/>
+	    <result column="stock_id" property="stock_id" jdbcType="INTEGER" />
+	    <result column="logistic_company_id" property="logistic_company_id" jdbcType="INTEGER" />
+	    <result column="logistic_no" property="logistic_no" jdbcType="VARCHAR" />
+	    <result column="delivery_status" property="delivery_status" jdbcType="VARCHAR" />
+	    <result column="is_delete" property="is_delete" jdbcType="VARCHAR" />
+	    
+	    <result column="add_user_id" property="add_user_id" jdbcType="INTEGER" />
+	    <result column="add_time" property="add_time" jdbcType="VARCHAR" />
+	    <result column="edit_user_id" property="edit_user_id" jdbcType="INTEGER" />
+	    <result column="edit_time" property="edit_time" jdbcType="VARCHAR" />	 	      
+	</resultMap>
+	<resultMap id="BaseOrderMap" type="cn.com.dubbo.model.OrderModel" >
+    <id column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="log_logistic_company_id" property="logLogisticCompanyId" jdbcType="INTEGER" />
+    <result column="multi_channel_order_batch_id" property="multiChannelOrderBatchId" jdbcType="BIGINT" />
+    <result column="multi_channel_id" property="multiChannelId" jdbcType="INTEGER" />
+    <result column="from_media" property="fromMedia" jdbcType="VARCHAR" />
+    <result column="multi_channel_order_no" property="multiChannelOrderNo" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="valid" property="valid" jdbcType="CHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="member_nick" property="memberNick" jdbcType="VARCHAR" />
+    <result column="is_pay" property="isPay" jdbcType="CHAR" />
+    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="delivery_fee_old" property="deliveryFeeOld" jdbcType="DECIMAL" />
+    <result column="delivery_fee" property="deliveryFee" jdbcType="DECIMAL" />
+    <result column="sku_fee" property="skuFee" jdbcType="DECIMAL" />
+    <result column="order_points" property="orderPoints" jdbcType="DECIMAL" />
+    <result column="order_vouchers" property="orderVouchers" jdbcType="DECIMAL" />
+    <result column="coupon_no" property="couponNo" jdbcType="VARCHAR" />
+    <result column="activity_discount_fee" property="activityDiscountFee" jdbcType="DECIMAL" />
+    <result column="paid_fee" property="paidFee" jdbcType="DECIMAL" />
+    <result column="order_pay_fee" property="orderPayFee" jdbcType="DECIMAL" />
+    <result column="order_fee" property="orderFee" jdbcType="DECIMAL" />
+    <result column="order_return_fee" property="orderReturnFee" jdbcType="DECIMAL" />
+    <result column="order_real_fee" property="orderRealFee" jdbcType="DECIMAL" />
+    <result column="receive_user" property="receiveUser" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
+    <result column="receive_full_address" property="receiveFullAddress" jdbcType="VARCHAR" />
+    <result column="receive_longitude" property="receiveLongitude" jdbcType="VARCHAR" />
+    <result column="receive_latitude" property="receiveLatitude" jdbcType="VARCHAR" />
+    <result column="receive_post" property="receivePost" jdbcType="INTEGER" />
+    <result column="receive_tel" property="receiveTel" jdbcType="VARCHAR" />
+    <result column="receive_mobile" property="receiveMobile" jdbcType="VARCHAR" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="invoice_content" property="invoiceContent" jdbcType="VARCHAR" />
+    <result column="order_msg" property="orderMsg" jdbcType="VARCHAR" />
+    <result column="order_notes" property="orderNotes" jdbcType="VARCHAR" />
+    <result column="audit_user_id" property="auditUserId" jdbcType="INTEGER" />
+    <result column="audit_time" property="auditTime" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="CHAR" />
+    <result column="lock_time" property="lockTime" jdbcType="VARCHAR" />
+    <result column="lock_user_id" property="lockUserId" jdbcType="INTEGER" />
+    <result column="commit_time" property="commitTime" jdbcType="VARCHAR" />
+    <result column="finish_time" property="finishTime" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="platform_create_time" property="platformCreateTime" jdbcType="VARCHAR" />
+    <result column="platform_edit_time" property="platformEditTime" jdbcType="VARCHAR" />
+    <result column="cancel_user_id" property="cancelUserId" jdbcType="INTEGER" />
+    <result column="cancel_notes" property="cancelNotes" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+    <result column="add_user_id" property="addUserId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="edit_user_id" property="editUserId" jdbcType="INTEGER" />
+    <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+    <result column="have_cfy" property="haveCfy" jdbcType="VARCHAR" />
+  </resultMap>
+	
+   <!--  <insert  id= "saveOrderDelivery"  parameterType= "cn.com.dubbo.model.OrderDelivery"  useGeneratedKeys= "true"  keyProperty= "order_delivery_no"   keyColumn= "order_delivery_no"> -->
+    <insert  id= "saveOrderDelivery"  parameterType= "cn.com.dubbo.model.OrderDelivery" >  
+		INSERT INTO 
+		order_delivery(order_delivery_no,order_no,stock_id,add_time
+		) 
+		VALUES(
+		#{order_delivery_no},#{order_no},#{stock_id},#{add_time}
+		) 
+     </insert>
+       	
+	<select id="queryMultiChannel"  resultType="cn.com.dubbo.model.MultiChannelModel">
+		SELECT MULTI_CHANNEL_ID as multiChannelId,CHANNEL_CODE as channelCode,CHANNEL_NAME as channelName 
+		FROM   ec_multi_channel
+	</select>
+ 	<select id="queryOrderDeliveryByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM order_delivery WHERE order_no=#{order_no}
+	</select>	
+	
+ 	<select id="isExistOrderDelivery" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT count(order_delivery_no) FROM order_delivery WHERE order_delivery_no=#{order_delivery_no}
+	</select>		
+	
+<!--	<update id="updateOrderDelivery" parameterType="java.lang.String">
+		update order_delivery state = 'Y' where order_no = #{order_no}
+	</update> -->
+	
+	<select id="selectOrderDeliveryByNo" resultType="cn.com.dubbo.model.OrderDelivery" parameterType="java.lang.String">
+		SELECT delivery.order_delivery_no, delivery.package_no, delivery.order_no, delivery.stock_id, delivery.logistic_company_id, delivery.logistic_no, 
+    		   delivery.delivery_status, delivery.is_delete, delivery.add_user_id, delivery.add_time, delivery.edit_user_id, delivery.edit_time
+    	FROM   order_delivery delivery 
+    	WHERE  delivery.order_no = #{order_no} 
+    	AND	   delivery.is_delete='N'
+	</select>
+	<select id="queryOrderInfoByGroup" resultMap="BaseOrderMap"  parameterType="java.lang.Long">
+		SELECT receive_full_address,receive_mobile,receive_user,log_logistic_company_id,count from 
+			(SELECT receive_full_address,receive_mobile,receive_user,log_logistic_company_id,COUNT(order_no) AS count FROM order_info 
+			WHERE order_status=2 AND receive_full_address is NOT NULL AND  receive_user is NOT NULL AND multi_channel_id=#{multiChannelId}
+			GROUP BY receive_full_address,receive_mobile,receive_user,log_logistic_company_id) as t WHERE count > 1
+	</select>
+	<select id="queryOrderInfoByModel" resultMap="BaseOrderMap"  parameterType="cn.com.dubbo.model.OrderModel">
+		SELECT DISTINCT(order_no) 
+		  FROM order_info  
+		 WHERE receive_user=#{receiveUser} and receive_full_address=#{receiveFullAddress} and receive_mobile=#{receiveMobile}
+	</select>
+	<update id="updateByMap" parameterType="map">
+		UPDATE order_delivery 
+		   SET package_no=#{packageNo},is_delete= 'Y'
+		 WHERE order_delivery_no = #{deliveryNo}
+	</update>
+	<update id="updateDeliveryByMap" parameterType="cn.com.dubbo.model.OrderDelivery">
+		UPDATE order_delivery 
+		<set>
+			<if test="stock_id != null and stock_id !=''">
+				stock_id=#{stock_id},
+			</if>
+			<if test="logistic_company_id != null and logistic_company_id !=''">
+				logistic_company_id=#{logistic_company_id},
+			</if>
+			<if test="logistic_no != null and logistic_no !=''">
+				logistic_no=#{logistic_no},
+			</if>
+			<if test="edit_time != null and edit_time !=''">
+				edit_time=#{edit_time},
+			</if>
+		</set>
+		  <!--  SET stock_id=#{stock_id},logistic_company_id= #{logistic_company_id},logistic_no=#{logistic_no},edit_time=#{edit_time} -->
+		 WHERE order_delivery_no = #{order_delivery_no}
+	</update>
+	<select id="selectOrderDeliveryBydeliveryNo" resultType="cn.com.dubbo.model.OrderDelivery" parameterType="cn.com.dubbo.model.OrderDelivery">
+		SELECT delivery.order_delivery_no, delivery.package_no, delivery.order_no, delivery.stock_id, delivery.logistic_company_id, delivery.logistic_no, 
+    		   delivery.delivery_status, delivery.is_delete, delivery.add_user_id, delivery.add_time, delivery.edit_user_id, delivery.edit_time
+    	FROM   order_delivery delivery 
+    	WHERE  delivery.order_delivery_no = #{order_delivery_no}
+	</select>
+	<select id="selectOrderDeliveryByStr" resultType="cn.com.dubbo.model.OrderDelivery" parameterType="java.lang.String">
+		SELECT delivery.order_delivery_no, delivery.package_no, delivery.order_no, delivery.stock_id, delivery.logistic_company_id, delivery.logistic_no, 
+    		   delivery.delivery_status, delivery.is_delete, delivery.add_user_id, delivery.add_time, delivery.edit_user_id, delivery.edit_time
+    	FROM   order_delivery delivery 
+    	WHERE  delivery.order_delivery_no = #{order_delivery_no}
+	</select>
+	<select id="getList" resultType="cn.com.dubbo.model.OrderDelivery">
+		SELECT delivery.order_delivery_no, delivery.package_no, delivery.order_no, delivery.stock_id, delivery.logistic_company_id, delivery.logistic_no, 
+    		   delivery.delivery_status, delivery.is_delete, delivery.add_user_id, delivery.add_time, delivery.edit_user_id, delivery.edit_time
+    	FROM   order_delivery delivery 
+    	WHERE  delivery.is_delete='N'
+	</select>
+	<insert id="insertPackageSelective" parameterType="cn.com.dubbo.model.OrderPackage" useGeneratedKeys="true" keyProperty="package_id">
+		INSERT INTO order_package (stock_id, order_no, 
+	      package_no, logistic_company_id, logistic_company_name, 
+	      logistic_company_no, logistic_no, multi_channel_id, 
+	      delivery_status, add_user_id, add_time, 
+	      edit_user_id, edit_time, deal_status
+	      )
+	    VALUES (#{stock_id,jdbcType=INTEGER}, #{order_no,jdbcType=VARCHAR}, 
+	      #{package_no,jdbcType=VARCHAR}, #{logistic_company_id,jdbcType=INTEGER}, #{logistic_company_name,jdbcType=VARCHAR}, 
+	      #{logistic_company_no,jdbcType=VARCHAR}, #{logistic_no,jdbcType=VARCHAR}, #{multi_channel_id,jdbcType=INTEGER}, 
+	      #{delivery_status,jdbcType=CHAR}, #{add_user_id,jdbcType=INTEGER}, #{add_time,jdbcType=VARCHAR}, 
+	      #{edit_user_id,jdbcType=INTEGER}, #{edit_time,jdbcType=VARCHAR}, #{deal_status,jdbcType=VARCHAR}
+	      )
+	</insert>
+	<select id="getDeliveryByPackageNo" resultType="cn.com.dubbo.model.OrderDelivery" parameterType="java.lang.String">
+		SELECT delivery.order_delivery_no, delivery.package_no, delivery.order_no, delivery.stock_id, delivery.logistic_company_id, delivery.logistic_no, 
+    		   delivery.delivery_status, delivery.is_delete, delivery.add_user_id, delivery.add_time, delivery.edit_user_id, delivery.edit_time
+    	FROM   order_delivery delivery 
+    	WHERE  delivery.package_no = #{package_no}
+	</select>
+	<insert id="insertPackageItemSelective" parameterType="cn.com.dubbo.model.OrderPackageItem">
+		 INSERT INTO order_package_item (package_id, order_item_id, 
+	      order_no, order_delivery_no, goods_type, 
+	      goods_no, goods_no_69, name, 
+	      unit, cost_price, old_price, 
+	      price, amount, price_dis, 
+	      goods_sum_fee, stock_id, is_delete, 
+	      add_user_id, add_time, edit_user_id, 
+	      edit_time)
+	    VALUES (#{package_id,jdbcType=BIGINT}, #{order_item_id,jdbcType=BIGINT}, 
+	      #{order_no,jdbcType=VARCHAR}, #{order_delivery_no,jdbcType=VARCHAR}, #{goods_type,jdbcType=VARCHAR}, 
+	      #{goods_no,jdbcType=VARCHAR}, #{goods_no_69,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+	      #{unit,jdbcType=VARCHAR}, #{cost_price,jdbcType=DECIMAL}, #{old_price,jdbcType=DECIMAL}, 
+	      #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{price_dis,jdbcType=DECIMAL}, 
+	      #{goods_sum_fee,jdbcType=DECIMAL}, #{stock_id,jdbcType=INTEGER}, #{is_delete,jdbcType=CHAR}, 
+	      #{add_user_id,jdbcType=INTEGER}, #{add_time,jdbcType=VARCHAR}, #{edit_user_id,jdbcType=INTEGER}, 
+	      #{edit_time,jdbcType=VARCHAR})
+	</insert>
+</mapper>

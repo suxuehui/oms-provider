@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper.AreaMapper">
+
+	<resultMap id="BaseResultMap" type="cn.com.dubbo.model.AreaModel" >
+		<id column="area_id" property="areaId" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findAreaByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM d_areas WHERE area_name=#{areaName};
+	</select>
+	
+	<select id="findAreaById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM d_areas WHERE area_id=#{areaId};
+	</select>
+	
+	<select id="getAllArea" resultMap="BaseResultMap">
+		SELECT * FROM d_areas;
+	</select>
+	
+	<select id="findArea" resultType="java.lang.String">
+		SELECT area_id FROM d_areas where parent_id=#{0} AND area_name = #{1};
+	</select>
+	
+	<select id="findlikeArea" resultType="java.lang.String">
+		SELECT area_id FROM d_areas where parent_id=#{0} AND area_name like CONCAT('%',#{1},'%' );
+	</select>
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dubbo.mapper2.E_salesorderbatchnoExtMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.dubbo.model2.E_salesorderbatchnoExt" >
+    <result column="e_ordernumber" property="eOrdernumber" jdbcType="VARCHAR" />
+    <result column="p_id" property="pId" jdbcType="VARCHAR" />
+    <result column="batchno" property="batchno" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="DECIMAL" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    e_ordernumber, p_id, batchno, quantity, comment, deleted
+  </sql>
+  <select id="selectList" resultMap="BaseResultMap"  parameterType="cn.com.dubbo.model2.E_orderstate">
+    select  count(e_s.p_id) as count,e_s.e_ordernumber, e_s.p_id, batchno, e_s.quantity, e_s.comment, e_s.deleted,e_p.product_id,e_p.NAME,e_p.barcode,e_p.serial_number
+      from  e_salesorderbatchno e_s
+      join  e_products e_p
+        on  e_s.p_id = e_p.product_id
+     where	e_s.e_ordernumber = #{eOrdernumber}
+       and  e_s.deleted = 1
+   group by e_s.p_id
+  </select>
+  <select id="selectListByeOrdernumber" resultMap="BaseResultMap"  parameterType="cn.com.dubbo.model2.E_orderstate">
+	 select  count(e_s.p_id) as count,e_s.e_ordernumber, e_s.p_id, batchno, e_s.quantity, e_s.comment, e_s.deleted,e_p.product_id,e_p.NAME,e_p.barcode,e_p.serial_number
+      from  e_salesorderbatchno e_s
+      join  e_products e_p
+        on  e_s.p_id = e_p.product_id
+     where	e_s.e_ordernumber = #{eOrdernumber}
+       and  e_s.deleted = 1
+   group by e_s.p_id
+   <!-- e_s.e_ordernumber -->
+  </select>
+  <select id="selectby" resultMap="BaseResultMap"  parameterType="cn.com.dubbo.model2.E_salesorderbatchno">
+    select  e_s.e_ordernumber, e_s.p_id, batchno, e_s.quantity, e_s.comment, e_s.deleted,e_p.product_id,e_p.NAME,e_p.barcode,e_p.serial_number
+      from  e_salesorderbatchno e_s
+      join  e_products e_p
+        on  e_s.p_id = e_p.product_id
+     where	e_s.e_ordernumber = #{eOrdernumber}
+       and  e_s.deleted = 1
+   	   and  e_s.p_id = #{pId}
+  </select>
+</mapper>
